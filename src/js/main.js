@@ -9,6 +9,26 @@ function champ(name) {
   }).catch(e => {console.warn(e)})
 }
 
+
+// TODO: fix Jarvaniv
+function generateChamps(champion, champions) {
+  const element = document.createElement("button")
+  element.addEventListener("click", () => champ(champions[champion]["id"].toLowerCase()))
+  element.id = champion.toLowerCase()
+  invoke("read", { name: champions[champion]["id"] }).then(result => result ? element.style.backgroundColor = "green" : {})
+    .catch(e => {console.warn(e)})
+  const elementP = document.createElement("p")
+  elementP.textContent = champion
+  const elementA = document.createElement("a")
+  const elementImg = document.createElement("img")
+  elementImg.src = `../assets/icons/icon${champions[champion]["key"]}.png`
+  elementImg.alt = champions[champion]["key"]
+  elementA.appendChild(elementImg)
+  element.appendChild(elementA)
+  element.appendChild(elementP)
+  document.getElementById("champions").appendChild(element)
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const buttons = document.getElementById("champions").children
 
@@ -35,24 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         for (let champion in champions) {
           if (champion.toLowerCase().includes(input.value.toLowerCase())) {
-            const element = document.createElement("button")
-            element.addEventListener("click", () => champ(champions[champion]["id"].toLowerCase()))
-            element.id = champion.toLowerCase()
-            invoke("read", { name: champions[champion]["id"] }).then(result => {
-              if (result) {
-                element.style.backgroundColor = "green"
-              }
-            }).catch(e => {console.warn(e)})
-            const elementP = document.createElement("p")
-            elementP.textContent = champion
-            const elementA = document.createElement("a")
-            const elementImg = document.createElement("img")
-            elementImg.src = `../assets/icons/icon${champions[champion]["key"]}.png`
-            elementImg.alt = champions[champion]["key"]
-            elementA.appendChild(elementImg)
-            element.appendChild(elementA)
-            element.appendChild(elementP)
-            document.getElementById("champions").appendChild(element)
+            generateChamps(champion, champions)
           }
         }
       } else {
@@ -63,26 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         for (let champion in champions) {
-          if (champion.toLowerCase().includes(input.value.toLowerCase())) {
-            const element = document.createElement("button")
-            element.addEventListener("click", () => champ(champions[champion]["id"].toLowerCase()))
-            element.id = champion.toLowerCase()
-            invoke("read", { name: champions[champion]["id"] }).then(result => {
-              if (result) {
-                element.style.backgroundColor = "green"
-              }
-            }).catch(e => {console.warn(e)})
-            const elementP = document.createElement("p")
-            elementP.textContent = champion
-            const elementA = document.createElement("a")
-            const elementImg = document.createElement("img")
-            elementImg.src = `../assets/icons/icon${champions[champion]["key"]}.png`
-            elementImg.alt = champions[champion]["key"]
-            elementA.appendChild(elementImg)
-            element.appendChild(elementA)
-            element.appendChild(elementP)
-            document.getElementById("champions").appendChild(element)
-          }
+          generateChamps(champion, champions)
         }
       }
     }
