@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Tauri App</title>
+    <link rel="stylesheet" href="./css/styles.css"/>
+    <script src="./js/main.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="champions" id="champions">
+        <button id="aatrox" onclick="champ('aatrox')">
+          <a>
+            <img src="../assets/icons/icon266.png" alt="aatrox">
+          </a>
+          <p>Aatrox</p>
+        </button>
+        <button id="ahri" onclick="champ('ahri')">
+          <a>
+            <img src="../assets/icons/icon103.png" alt="ahri">
+          </a>
+          <p>Ahri</p>
+        </button>
+        <button id="akali" onclick="champ('akali')">
+          <a>
+            <img src="../assets/icons/icon84.png" alt="akali">
+          </a>
+          <p>Akali</p>
+        </button>
+        <button id="akshan" onclick="champ('akshan')">
+          <a>
+            <img src="../assets/icons/icon166.png" alt="akshan">
+          </a>
+          <p>Akshan</p>
+        </button>
+        <button id="alistar" onclick="champ('alistar')">
+          <a>
+            <img src="../assets/icons/icon12.png" alt="alistar">
+          </a>
+          <p>Alistar</p>
+        </button>
+        <button id="amumu" onclick="champ('amumu')">
+          <a>
+            <img src="../assets/icons/icon32.png" alt="amumu">
+          </a>
+          <p>Amumu</p>
+        </button>
+        <button id="anivia" onclick="champ('anivia')">
+          <a>
+            <img src="../assets/icons/icon34.png" alt="anivia">
+          </a>
+          <p>Anivia</p>
+        </button>
+        <button id="annie" onclick="champ('annie')">
+          <a>
+            <img src="../assets/icons/icon1.png" alt="annie">
+          </a>
+          <p>Annie</p>
+        </button>
+        <button id="aphelios" onclick="champ('aphelios')">
+          <a>
+            <img src="../assets/icons/icon523.png" alt="aphelios">
+          </a>
+          <p>Aphelios</p>
+        </button>
+        <button id="ashe" onclick="champ('ashe')">
+          <a>
+            <img src="../assets/icons/icon22.png" alt="ashe">
+          </a>
+          <p>Ashe</p>
+        </button>
+        <button id="aurelionsol" onclick="champ('aurelionsol')">
+          <a>
+            <img src="../assets/icons/icon136.png" alt="aurelionsol">
+          </a>
+          <p>AurelionSol</p>
+        </button>
+        <button id="azir" onclick="champ('azir')">
+          <a>
+            <img src="../assets/icons/icon268.png" alt="azir">
+          </a>
+          <p>Azir</p>
+        </button>
+        <button id="bard" onclick="champ('bard')">
+          <a>
+            <img src="../assets/icons/icon432.png" alt="bard">
+          </a>
+          <p>Bard</p>
+        </button>
+        <button id="belveth" onclick="champ('belveth')">
+          <a>
+            <img src="../assets/icons/icon200.png" alt="belveth">
+          </a>
+          <p>Belveth</p>
+        </button>
+        <button id="blitzcrank" onclick="champ('blitzcrank')">
+          <a>
+            <img src="../assets/icons/icon53.png" alt="blitzcrank">
+          </a>
+          <p>Blitzcrank</p>
+        </button>
+        <button id="brand" onclick="champ('brand')">
+          <a>
+            <img src="../assets/icons/icon63.png" alt="brand">
+          </a>
+          <p>Brand</p>
+        </button>
+        <button id="braum" onclick="champ('braum')">
+          <a>
+            <img src="../assets/icons/icon201.png" alt="braum">
+          </a>
+          <p>Braum</p>
+        </button>
+        <button id="caitlyn" onclick="champ('caitlyn')">
+          <a>
+            <img src="../assets/icons/icon51.png" alt="caitlyn">
+          </a>
+          <p>Caitlyn</p>
+        </button>
+        <button id="camille" onclick="champ('camille')">
+          <a>
+            <img src="../assets/icons/icon164.png" alt="camille">
+          </a>
+          <p>Camille</p>
+        </button>
+        <button id="cassiopeia" onclick="champ('cassiopeia')">
+          <a>
+            <img src="../assets/icons/icon69.png" alt="cassiopeia">
+          </a>
+          <p>Cassiopeia</p>
+        </button>
+        <button id="chogath" onclick="champ('chogath')">
+          <a>
+            <img src="../assets/icons/icon31.png" alt="chogath">
+          </a>
+          <p>Chogath</p>
+        </button>
+        <button id="corki" onclick="champ('corki')">
+          <a>
+            <img src="../assets/icons/icon42.png" alt="corki">
+          </a>
+          <p>Corki</p>
+        </button>
+        <button id="darius" onclick="champ('darius')">
+          <a>
+            <img src="../assets/icons/icon122.png" alt="darius">
+          </a>
+          <p>Darius</p>
+        </button>
+        <button id="diana" onclick="champ('diana')">
+          <a>
+            <img src="../assets/icons/icon131.png" alt="diana">
+          </a>
+          <p>Diana</p>
+        </button>
+        <button id="draven" onclick="champ('draven')">
+          <a>
+            <img src="../assets/icons/icon119.png" alt="draven">
+          </a>
+          <p>Draven</p>
+        </button>
+        <button id="drmundo" onclick="champ('drmundo')">
+          <a>
+            <img src="../assets/icons/icon36.png" alt="drmundo">
+          </a>
+          <p>DrMundo</p>
+        </button>
+        <button id="ekko" onclick="champ('ekko')">
+          <a>
+            <img src="../assets/icons/icon245.png" alt="ekko">
+          </a>
+          <p>Ekko</p>
+        </button>
+        <button id="elise" onclick="champ('elise')">
+          <a>
+            <img src="../assets/icons/icon60.png" alt="elise">
+          </a>
+          <p>Elise</p>
+        </button>
+        <button id="evelynn" onclick="champ('evelynn')">
+          <a>
+            <img src="../assets/icons/icon28.png" alt="evelynn">
+          </a>
+          <p>Evelynn</p>
+        </button>
+        <button id="ezreal" onclick="champ('ezreal')">
+          <a>
+            <img src="../assets/icons/icon81.png" alt="ezreal">
+          </a>
+          <p>Ezreal</p>
+        </button>
+        <button id="fiddlesticks" onclick="champ('fiddlesticks')">
+          <a>
+            <img src="../assets/icons/icon9.png" alt="fiddlesticks">
+          </a>
+          <p>Fiddlesticks</p>
+        </button>
+        <button id="fiora" onclick="champ('fiora')">
+          <a>
+            <img src="../assets/icons/icon114.png" alt="fiora">
+          </a>
+          <p>Fiora</p>
+        </button>
+        <button id="fizz" onclick="champ('fizz')">
+          <a>
+            <img src="../assets/icons/icon105.png" alt="fizz">
+          </a>
+          <p>Fizz</p>
+        </button>
+        <button id="galio" onclick="champ('galio')">
+          <a>
+            <img src="../assets/icons/icon3.png" alt="galio">
+          </a>
+          <p>Galio</p>
+        </button>
+        <button id="gangplank" onclick="champ('gangplank')">
+          <a>
+            <img src="../assets/icons/icon41.png" alt="gangplank">
+          </a>
+          <p>Gangplank</p>
+        </button>
+        <button id="garen" onclick="champ('garen')">
+          <a>
+            <img src="../assets/icons/icon86.png" alt="garen">
+          </a>
+          <p>Garen</p>
+        </button>
+        <button id="gnar" onclick="champ('gnar')">
+          <a>
+            <img src="../assets/icons/icon150.png" alt="gnar">
+          </a>
+          <p>Gnar</p>
+        </button>
+        <button id="gragas" onclick="champ('gragas')">
+          <a>
+            <img src="../assets/icons/icon79.png" alt="gragas">
+          </a>
+          <p>Gragas</p>
+        </button>
+        <button id="graves" onclick="champ('graves')">
+          <a>
+            <img src="../assets/icons/icon104.png" alt="graves">
+          </a>
+          <p>Graves</p>
+        </button>
+        <button id="gwen" onclick="champ('gwen')">
+          <a>
+            <img src="../assets/icons/icon887.png" alt="gwen">
+          </a>
+          <p>Gwen</p>
+        </button>
+        <button id="hecarim" onclick="champ('hecarim')">
+          <a>
+            <img src="../assets/icons/icon120.png" alt="hecarim">
+          </a>
+          <p>Hecarim</p>
+        </button>
+        <button id="heimerdinger" onclick="champ('heimerdinger')">
+          <a>
+            <img src="../assets/icons/icon74.png" alt="heimerdinger">
+          </a>
+          <p>Heimerdinger</p>
+        </button>
+        <button id="illaoi" onclick="champ('illaoi')">
+          <a>
+            <img src="../assets/icons/icon420.png" alt="illaoi">
+          </a>
+          <p>Illaoi</p>
+        </button>
+        <button id="irelia" onclick="champ('irelia')">
+          <a>
+            <img src="../assets/icons/icon39.png" alt="irelia">
+          </a>
+          <p>Irelia</p>
+        </button>
+        <button id="ivern" onclick="champ('ivern')">
+          <a>
+            <img src="../assets/icons/icon427.png" alt="ivern">
+          </a>
+          <p>Ivern</p>
+        </button>
+        <button id="janna" onclick="champ('janna')">
+          <a>
+            <img src="../assets/icons/icon40.png" alt="janna">
+          </a>
+          <p>Janna</p>
+        </button>
+        <button id="jarvaniv" onclick="champ('jarvaniv')">
+          <a>
+            <img src="../assets/icons/icon59.png" alt="jarvaniv">
+          </a>
+          <p>JarvanIV</p>
+        </button>
+        <button id="jax" onclick="champ('jax')">
+          <a>
+            <img src="../assets/icons/icon24.png" alt="jax">
+          </a>
+          <p>Jax</p>
+        </button>
+        <button id="jayce" onclick="champ('jayce')">
+          <a>
+            <img src="../assets/icons/icon126.png" alt="jayce">
+          </a>
+          <p>Jayce</p>
+        </button>
+        <button id="jhin" onclick="champ('jhin')">
+          <a>
+            <img src="../assets/icons/icon202.png" alt="jhin">
+          </a>
+          <p>Jhin</p>
+        </button>
+        <button id="jinx" onclick="champ('jinx')">
+          <a>
+            <img src="../assets/icons/icon222.png" alt="jinx">
+          </a>
+          <p>Jinx</p>
+        </button>
+        <button id="kaisa" onclick="champ('kaisa')">
+          <a>
+            <img src="../assets/icons/icon145.png" alt="kaisa">
+          </a>
+          <p>Kaisa</p>
+        </button>
+        <button id="kalista" onclick="champ('kalista')">
+          <a>
+            <img src="../assets/icons/icon429.png" alt="kalista">
+          </a>
+          <p>Kalista</p>
+        </button>
+        <button id="karma" onclick="champ('karma')">
+          <a>
+            <img src="../assets/icons/icon43.png" alt="karma">
+          </a>
+          <p>Karma</p>
+        </button>
+        <button id="karthus" onclick="champ('karthus')">
+          <a>
+            <img src="../assets/icons/icon30.png" alt="karthus">
+          </a>
+          <p>Karthus</p>
+        </button>
+        <button id="kassadin" onclick="champ('kassadin')">
+          <a>
+            <img src="../assets/icons/icon38.png" alt="kassadin">
+          </a>
+          <p>Kassadin</p>
+        </button>
+        <button id="katarina" onclick="champ('katarina')">
+          <a>
+            <img src="../assets/icons/icon55.png" alt="katarina">
+          </a>
+          <p>Katarina</p>
+        </button>
+        <button id="kayle" onclick="champ('kayle')">
+          <a>
+            <img src="../assets/icons/icon10.png" alt="kayle">
+          </a>
+          <p>Kayle</p>
+        </button>
+        <button id="kayn" onclick="champ('kayn')">
+          <a>
+            <img src="../assets/icons/icon141.png" alt="kayn">
+          </a>
+          <p>Kayn</p>
+        </button>
+        <button id="kennen" onclick="champ('kennen')">
+          <a>
+            <img src="../assets/icons/icon85.png" alt="kennen">
+          </a>
+          <p>Kennen</p>
+        </button>
+        <button id="khazix" onclick="champ('khazix')">
+          <a>
+            <img src="../assets/icons/icon121.png" alt="khazix">
+          </a>
+          <p>Khazix</p>
+        </button>
+        <button id="kindred" onclick="champ('kindred')">
+          <a>
+            <img src="../assets/icons/icon203.png" alt="kindred">
+          </a>
+          <p>Kindred</p>
+        </button>
+        <button id="kled" onclick="champ('kled')">
+          <a>
+            <img src="../assets/icons/icon240.png" alt="kled">
+          </a>
+          <p>Kled</p>
+        </button>
+        <button id="kogmaw" onclick="champ('kogmaw')">
+          <a>
+            <img src="../assets/icons/icon96.png" alt="kogmaw">
+          </a>
+          <p>KogMaw</p>
+        </button>
+        <button id="ksante" onclick="champ('ksante')">
+          <a>
+            <img src="../assets/icons/icon897.png" alt="ksante">
+          </a>
+          <p>KSante</p>
+        </button>
+        <button id="leblanc" onclick="champ('leblanc')">
+          <a>
+            <img src="../assets/icons/icon7.png" alt="leblanc">
+          </a>
+          <p>Leblanc</p>
+        </button>
+        <button id="leesin" onclick="champ('leesin')">
+          <a>
+            <img src="../assets/icons/icon64.png" alt="leesin">
+          </a>
+          <p>LeeSin</p>
+        </button>
+        <button id="leona" onclick="champ('leona')">
+          <a>
+            <img src="../assets/icons/icon89.png" alt="leona">
+          </a>
+          <p>Leona</p>
+        </button>
+        <button id="lillia" onclick="champ('lillia')">
+          <a>
+            <img src="../assets/icons/icon876.png" alt="lillia">
+          </a>
+          <p>Lillia</p>
+        </button>
+        <button id="lissandra" onclick="champ('lissandra')">
+          <a>
+            <img src="../assets/icons/icon127.png" alt="lissandra">
+          </a>
+          <p>Lissandra</p>
+        </button>
+        <button id="lucian" onclick="champ('lucian')">
+          <a>
+            <img src="../assets/icons/icon236.png" alt="lucian">
+          </a>
+          <p>Lucian</p>
+        </button>
+        <button id="lulu" onclick="champ('lulu')">
+          <a>
+            <img src="../assets/icons/icon117.png" alt="lulu">
+          </a>
+          <p>Lulu</p>
+        </button>
+        <button id="lux" onclick="champ('lux')">
+          <a>
+            <img src="../assets/icons/icon99.png" alt="lux">
+          </a>
+          <p>Lux</p>
+        </button>
+        <button id="malphite" onclick="champ('malphite')">
+          <a>
+            <img src="../assets/icons/icon54.png" alt="malphite">
+          </a>
+          <p>Malphite</p>
+        </button>
+        <button id="malzahar" onclick="champ('malzahar')">
+          <a>
+            <img src="../assets/icons/icon90.png" alt="malzahar">
+          </a>
+          <p>Malzahar</p>
+        </button>
+        <button id="maokai" onclick="champ('maokai')">
+          <a>
+            <img src="../assets/icons/icon57.png" alt="maokai">
+          </a>
+          <p>Maokai</p>
+        </button>
+        <button id="masteryi" onclick="champ('masteryi')">
+          <a>
+            <img src="../assets/icons/icon11.png" alt="masteryi">
+          </a>
+          <p>MasterYi</p>
+        </button>
+        <button id="milio" onclick="champ('milio')">
+          <a>
+            <img src="../assets/icons/icon902.png" alt="milio">
+          </a>
+          <p>Milio</p>
+        </button>
+        <button id="missfortune" onclick="champ('missfortune')">
+          <a>
+            <img src="../assets/icons/icon21.png" alt="missfortune">
+          </a>
+          <p>MissFortune</p>
+        </button>
+        <button id="wukong" onclick="champ('wukong')">
+          <a>
+            <img src="../assets/icons/icon62.png" alt="wukong">
+          </a>
+          <p>Wukong</p>
+        </button>
+        <button id="mordekaiser" onclick="champ('mordekaiser')">
+          <a>
+            <img src="../assets/icons/icon82.png" alt="mordekaiser">
+          </a>
+          <p>Mordekaiser</p>
+        </button>
+        <button id="morgana" onclick="champ('morgana')">
+          <a>
+            <img src="../assets/icons/icon25.png" alt="morgana">
+          </a>
+          <p>Morgana</p>
+        </button>
+        <button id="nami" onclick="champ('nami')">
+          <a>
+            <img src="../assets/icons/icon267.png" alt="nami">
+          </a>
+          <p>Nami</p>
+        </button>
+        <button id="nasus" onclick="champ('nasus')">
+          <a>
+            <img src="../assets/icons/icon75.png" alt="nasus">
+          </a>
+          <p>Nasus</p>
+        </button>
+        <button id="nautilus" onclick="champ('nautilus')">
+          <a>
+            <img src="../assets/icons/icon111.png" alt="nautilus">
+          </a>
+          <p>Nautilus</p>
+        </button>
+        <button id="neeko" onclick="champ('neeko')">
+          <a>
+            <img src="../assets/icons/icon518.png" alt="neeko">
+          </a>
+          <p>Neeko</p>
+        </button>
+        <button id="nidalee" onclick="champ('nidalee')">
+          <a>
+            <img src="../assets/icons/icon76.png" alt="nidalee">
+          </a>
+          <p>Nidalee</p>
+        </button>
+        <button id="nilah" onclick="champ('nilah')">
+          <a>
+            <img src="../assets/icons/icon895.png" alt="nilah">
+          </a>
+          <p>Nilah</p>
+        </button>
+        <button id="nocturne" onclick="champ('nocturne')">
+          <a>
+            <img src="../assets/icons/icon56.png" alt="nocturne">
+          </a>
+          <p>Nocturne</p>
+        </button>
+        <button id="nunu" onclick="champ('nunu')">
+          <a>
+            <img src="../assets/icons/icon20.png" alt="nunu">
+          </a>
+          <p>Nunu</p>
+        </button>
+        <button id="olaf" onclick="champ('olaf')">
+          <a>
+            <img src="../assets/icons/icon2.png" alt="olaf">
+          </a>
+          <p>Olaf</p>
+        </button>
+        <button id="orianna" onclick="champ('orianna')">
+          <a>
+            <img src="../assets/icons/icon61.png" alt="orianna">
+          </a>
+          <p>Orianna</p>
+        </button>
+        <button id="ornn" onclick="champ('ornn')">
+          <a>
+            <img src="../assets/icons/icon516.png" alt="ornn">
+          </a>
+          <p>Ornn</p>
+        </button>
+        <button id="pantheon" onclick="champ('pantheon')">
+          <a>
+            <img src="../assets/icons/icon80.png" alt="pantheon">
+          </a>
+          <p>Pantheon</p>
+        </button>
+        <button id="poppy" onclick="champ('poppy')">
+          <a>
+            <img src="../assets/icons/icon78.png" alt="poppy">
+          </a>
+          <p>Poppy</p>
+        </button>
+        <button id="pyke" onclick="champ('pyke')">
+          <a>
+            <img src="../assets/icons/icon555.png" alt="pyke">
+          </a>
+          <p>Pyke</p>
+        </button>
+        <button id="qiyana" onclick="champ('qiyana')">
+          <a>
+            <img src="../assets/icons/icon246.png" alt="qiyana">
+          </a>
+          <p>Qiyana</p>
+        </button>
+        <button id="quinn" onclick="champ('quinn')">
+          <a>
+            <img src="../assets/icons/icon133.png" alt="quinn">
+          </a>
+          <p>Quinn</p>
+        </button>
+        <button id="rakan" onclick="champ('rakan')">
+          <a>
+            <img src="../assets/icons/icon497.png" alt="rakan">
+          </a>
+          <p>Rakan</p>
+        </button>
+        <button id="rammus" onclick="champ('rammus')">
+          <a>
+            <img src="../assets/icons/icon33.png" alt="rammus">
+          </a>
+          <p>Rammus</p>
+        </button>
+        <button id="reksai" onclick="champ('reksai')">
+          <a>
+            <img src="../assets/icons/icon421.png" alt="reksai">
+          </a>
+          <p>RekSai</p>
+        </button>
+        <button id="rell" onclick="champ('rell')">
+          <a>
+            <img src="../assets/icons/icon526.png" alt="rell">
+          </a>
+          <p>Rell</p>
+        </button>
+        <button id="renata" onclick="champ('renata')">
+          <a>
+            <img src="../assets/icons/icon888.png" alt="renata">
+          </a>
+          <p>Renata</p>
+        </button>
+        <button id="renekton" onclick="champ('renekton')">
+          <a>
+            <img src="../assets/icons/icon58.png" alt="renekton">
+          </a>
+          <p>Renekton</p>
+        </button>
+        <button id="rengar" onclick="champ('rengar')">
+          <a>
+            <img src="../assets/icons/icon107.png" alt="rengar">
+          </a>
+          <p>Rengar</p>
+        </button>
+        <button id="riven" onclick="champ('riven')">
+          <a>
+            <img src="../assets/icons/icon92.png" alt="riven">
+          </a>
+          <p>Riven</p>
+        </button>
+        <button id="rumble" onclick="champ('rumble')">
+          <a>
+            <img src="../assets/icons/icon68.png" alt="rumble">
+          </a>
+          <p>Rumble</p>
+        </button>
+        <button id="ryze" onclick="champ('ryze')">
+          <a>
+            <img src="../assets/icons/icon13.png" alt="ryze">
+          </a>
+          <p>Ryze</p>
+        </button>
+        <button id="samira" onclick="champ('samira')">
+          <a>
+            <img src="../assets/icons/icon360.png" alt="samira">
+          </a>
+          <p>Samira</p>
+        </button>
+        <button id="sejuani" onclick="champ('sejuani')">
+          <a>
+            <img src="../assets/icons/icon113.png" alt="sejuani">
+          </a>
+          <p>Sejuani</p>
+        </button>
+        <button id="senna" onclick="champ('senna')">
+          <a>
+            <img src="../assets/icons/icon235.png" alt="senna">
+          </a>
+          <p>Senna</p>
+        </button>
+        <button id="seraphine" onclick="champ('seraphine')">
+          <a>
+            <img src="../assets/icons/icon147.png" alt="seraphine">
+          </a>
+          <p>Seraphine</p>
+        </button>
+        <button id="sett" onclick="champ('sett')">
+          <a>
+            <img src="../assets/icons/icon875.png" alt="sett">
+          </a>
+          <p>Sett</p>
+        </button>
+        <button id="shaco" onclick="champ('shaco')">
+          <a>
+            <img src="../assets/icons/icon35.png" alt="shaco">
+          </a>
+          <p>Shaco</p>
+        </button>
+        <button id="shen" onclick="champ('shen')">
+          <a>
+            <img src="../assets/icons/icon98.png" alt="shen">
+          </a>
+          <p>Shen</p>
+        </button>
+        <button id="shyvana" onclick="champ('shyvana')">
+          <a>
+            <img src="../assets/icons/icon102.png" alt="shyvana">
+          </a>
+          <p>Shyvana</p>
+        </button>
+        <button id="singed" onclick="champ('singed')">
+          <a>
+            <img src="../assets/icons/icon27.png" alt="singed">
+          </a>
+          <p>Singed</p>
+        </button>
+        <button id="sion" onclick="champ('sion')">
+          <a>
+            <img src="../assets/icons/icon14.png" alt="sion">
+          </a>
+          <p>Sion</p>
+        </button>
+        <button id="sivir" onclick="champ('sivir')">
+          <a>
+            <img src="../assets/icons/icon15.png" alt="sivir">
+          </a>
+          <p>Sivir</p>
+        </button>
+        <button id="skarner" onclick="champ('skarner')">
+          <a>
+            <img src="../assets/icons/icon72.png" alt="skarner">
+          </a>
+          <p>Skarner</p>
+        </button>
+        <button id="sona" onclick="champ('sona')">
+          <a>
+            <img src="../assets/icons/icon37.png" alt="sona">
+          </a>
+          <p>Sona</p>
+        </button>
+        <button id="soraka" onclick="champ('soraka')">
+          <a>
+            <img src="../assets/icons/icon16.png" alt="soraka">
+          </a>
+          <p>Soraka</p>
+        </button>
+        <button id="swain" onclick="champ('swain')">
+          <a>
+            <img src="../assets/icons/icon50.png" alt="swain">
+          </a>
+          <p>Swain</p>
+        </button>
+        <button id="sylas" onclick="champ('sylas')">
+          <a>
+            <img src="../assets/icons/icon517.png" alt="sylas">
+          </a>
+          <p>Sylas</p>
+        </button>
+        <button id="syndra" onclick="champ('syndra')">
+          <a>
+            <img src="../assets/icons/icon134.png" alt="syndra">
+          </a>
+          <p>Syndra</p>
+        </button>
+        <button id="tahmkench" onclick="champ('tahmkench')">
+          <a>
+            <img src="../assets/icons/icon223.png" alt="tahmkench">
+          </a>
+          <p>TahmKench</p>
+        </button>
+        <button id="taliyah" onclick="champ('taliyah')">
+          <a>
+            <img src="../assets/icons/icon163.png" alt="taliyah">
+          </a>
+          <p>Taliyah</p>
+        </button>
+        <button id="talon" onclick="champ('talon')">
+          <a>
+            <img src="../assets/icons/icon91.png" alt="talon">
+          </a>
+          <p>Talon</p>
+        </button>
+        <button id="taric" onclick="champ('taric')">
+          <a>
+            <img src="../assets/icons/icon44.png" alt="taric">
+          </a>
+          <p>Taric</p>
+        </button>
+        <button id="teemo" onclick="champ('teemo')">
+          <a>
+            <img src="../assets/icons/icon17.png" alt="teemo">
+          </a>
+          <p>Teemo</p>
+        </button>
+        <button id="thresh" onclick="champ('thresh')">
+          <a>
+            <img src="../assets/icons/icon412.png" alt="thresh">
+          </a>
+          <p>Thresh</p>
+        </button>
+        <button id="tristana" onclick="champ('tristana')">
+          <a>
+            <img src="../assets/icons/icon18.png" alt="tristana">
+          </a>
+          <p>Tristana</p>
+        </button>
+        <button id="trundle" onclick="champ('trundle')">
+          <a>
+            <img src="../assets/icons/icon48.png" alt="trundle">
+          </a>
+          <p>Trundle</p>
+        </button>
+        <button id="tryndamere" onclick="champ('tryndamere')">
+          <a>
+            <img src="../assets/icons/icon23.png" alt="tryndamere">
+          </a>
+          <p>Tryndamere</p>
+        </button>
+        <button id="twistedfate" onclick="champ('twistedfate')">
+          <a>
+            <img src="../assets/icons/icon4.png" alt="twistedfate">
+          </a>
+          <p>TwistedFate</p>
+        </button>
+        <button id="twitch" onclick="champ('twitch')">
+          <a>
+            <img src="../assets/icons/icon29.png" alt="twitch">
+          </a>
+          <p>Twitch</p>
+        </button>
+        <button id="udyr" onclick="champ('udyr')">
+          <a>
+            <img src="../assets/icons/icon77.png" alt="udyr">
+          </a>
+          <p>Udyr</p>
+        </button>
+        <button id="urgot" onclick="champ('urgot')">
+          <a>
+            <img src="../assets/icons/icon6.png" alt="urgot">
+          </a>
+          <p>Urgot</p>
+        </button>
+        <button id="varus" onclick="champ('varus')">
+          <a>
+            <img src="../assets/icons/icon110.png" alt="varus">
+          </a>
+          <p>Varus</p>
+        </button>
+        <button id="vayne" onclick="champ('vayne')">
+          <a>
+            <img src="../assets/icons/icon67.png" alt="vayne">
+          </a>
+          <p>Vayne</p>
+        </button>
+        <button id="veigar" onclick="champ('veigar')">
+          <a>
+            <img src="../assets/icons/icon45.png" alt="veigar">
+          </a>
+          <p>Veigar</p>
+        </button>
+        <button id="velkoz" onclick="champ('velkoz')">
+          <a>
+            <img src="../assets/icons/icon161.png" alt="velkoz">
+          </a>
+          <p>Velkoz</p>
+        </button>
+        <button id="vex" onclick="champ('vex')">
+          <a>
+            <img src="../assets/icons/icon711.png" alt="vex">
+          </a>
+          <p>Vex</p>
+        </button>
+        <button id="vi" onclick="champ('vi')">
+          <a>
+            <img src="../assets/icons/icon254.png" alt="vi">
+          </a>
+          <p>Vi</p>
+        </button>
+        <button id="viego" onclick="champ('viego')">
+          <a>
+            <img src="../assets/icons/icon234.png" alt="viego">
+          </a>
+          <p>Viego</p>
+        </button>
+        <button id="viktor" onclick="champ('viktor')">
+          <a>
+            <img src="../assets/icons/icon112.png" alt="viktor">
+          </a>
+          <p>Viktor</p>
+        </button>
+        <button id="vladimir" onclick="champ('vladimir')">
+          <a>
+            <img src="../assets/icons/icon8.png" alt="vladimir">
+          </a>
+          <p>Vladimir</p>
+        </button>
+        <button id="volibear" onclick="champ('volibear')">
+          <a>
+            <img src="../assets/icons/icon106.png" alt="volibear">
+          </a>
+          <p>Volibear</p>
+        </button>
+        <button id="warwick" onclick="champ('warwick')">
+          <a>
+            <img src="../assets/icons/icon19.png" alt="warwick">
+          </a>
+          <p>Warwick</p>
+        </button>
+        <button id="xayah" onclick="champ('xayah')">
+          <a>
+            <img src="../assets/icons/icon498.png" alt="xayah">
+          </a>
+          <p>Xayah</p>
+        </button>
+        <button id="xerath" onclick="champ('xerath')">
+          <a>
+            <img src="../assets/icons/icon101.png" alt="xerath">
+          </a>
+          <p>Xerath</p>
+        </button>
+        <button id="xinzhao" onclick="champ('xinzhao')">
+          <a>
+            <img src="../assets/icons/icon5.png" alt="xinzhao">
+          </a>
+          <p>XinZhao</p>
+        </button>
+        <button id="yasuo" onclick="champ('yasuo')">
+          <a>
+            <img src="../assets/icons/icon157.png" alt="yasuo">
+          </a>
+          <p>Yasuo</p>
+        </button>
+        <button id="yone" onclick="champ('yone')">
+          <a>
+            <img src="../assets/icons/icon777.png" alt="yone">
+          </a>
+          <p>Yone</p>
+        </button>
+        <button id="yorick" onclick="champ('yorick')">
+          <a>
+            <img src="../assets/icons/icon83.png" alt="yorick">
+          </a>
+          <p>Yorick</p>
+        </button>
+        <button id="yuumi" onclick="champ('yuumi')">
+          <a>
+            <img src="../assets/icons/icon350.png" alt="yuumi">
+          </a>
+          <p>Yuumi</p>
+        </button>
+        <button id="zac" onclick="champ('zac')">
+          <a>
+            <img src="../assets/icons/icon154.png" alt="zac">
+          </a>
+          <p>Zac</p>
+        </button>
+        <button id="zed" onclick="champ('zed')">
+          <a>
+            <img src="../assets/icons/icon238.png" alt="zed">
+          </a>
+          <p>Zed</p>
+        </button>
+        <button id="zeri" onclick="champ('zeri')">
+          <a>
+            <img src="../assets/icons/icon221.png" alt="zeri">
+          </a>
+          <p>Zeri</p>
+        </button>
+        <button id="ziggs" onclick="champ('ziggs')">
+          <a>
+            <img src="../assets/icons/icon115.png" alt="ziggs">
+          </a>
+          <p>Ziggs</p>
+        </button>
+        <button id="zilean" onclick="champ('zilean')">
+          <a>
+            <img src="../assets/icons/icon26.png" alt="zilean">
+          </a>
+          <p>Zilean</p>
+        </button>
+        <button id="zoe" onclick="champ('zoe')">
+          <a>
+            <img src="../assets/icons/icon142.png" alt="zoe">
+          </a>
+          <p>Zoe</p>
+        </button>
+        <button id="zyra" onclick="champ('zyra')">
+          <a>
+            <img src="../assets/icons/icon143.png" alt="zyra">
+          </a>
+          <p>Zyra</p>
+        </button>
+      </div>
+      <div class="menu">
+        <div class="search">
+          <input type="text" placeholder="Search for champions" id="input">
+        </div>
+        <div class="row">
+          <button>Test1</button>
+          <button>test2</button>
+          <button>test3</button>
+          <button onclick="test()">testing</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
