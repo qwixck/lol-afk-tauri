@@ -1,28 +1,25 @@
 const { invoke } = window.__TAURI__.tauri
 
 function champ(name) {
-  const newName = name.charAt(0).toUpperCase() + name.slice(1)
-  invoke("write", { name: newName }).then(result => {
-      const champion = document.getElementById(name.toLowerCase())
+  invoke("write", { name: name }).then(result => {
+      const champion = document.getElementById(name)
       if (result) champion.style.backgroundColor = "#0f0f0f98"
       else champion.style.backgroundColor = "green"
   }).catch(e => {console.warn(e)})
 }
 
-
-// TODO: fix Jarvaniv
 function generateChamps(champion, champions) {
   const element = document.createElement("button")
-  element.addEventListener("click", () => champ(champions[champion]["id"].toLowerCase()))
-  element.id = champion.toLowerCase()
-  invoke("read", { name: champions[champion]["id"] }).then(result => result ? element.style.backgroundColor = "green" : {})
+  element.addEventListener("click", () => champ(champion))
+  element.id = champion
+  invoke("read", { name: champion }).then(result => result ? element.style.backgroundColor = "green" : {})
     .catch(e => {console.warn(e)})
   const elementP = document.createElement("p")
-  elementP.textContent = champion
+  elementP.textContent = champion.charAt(0).toUpperCase() + champion.slice(1)
   const elementA = document.createElement("a")
   const elementImg = document.createElement("img")
   elementImg.src = `../assets/icons/icon${champions[champion]["key"]}.png`
-  elementImg.alt = champions[champion]["key"]
+  elementImg.alt = champion
   elementA.appendChild(elementImg)
   element.appendChild(elementA)
   element.appendChild(elementP)
@@ -33,8 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const buttons = document.getElementById("champions").children
 
   for (let i = 0; i < buttons.length; i++) {
-    const newName = buttons[i].id.charAt(0).toUpperCase() + buttons[i].id.slice(1)
-    invoke("read", { name: newName }).then(result => {
+    invoke("read", { name: buttons[i].id }).then(result => {
       if (result) {
         buttons[i].style.backgroundColor = "green";
       }
@@ -49,19 +45,19 @@ document.addEventListener("DOMContentLoaded", () => {
       if (input.value !== "") {
         for (let champion in champions) {
           try {
-            document.getElementById(champion.toLowerCase()).remove()
+            document.getElementById(champion).remove()
           } catch (e) {}
         }
 
         for (let champion in champions) {
-          if (champion.toLowerCase().includes(input.value.toLowerCase())) {
+          if (champion.includes(input.value.toLowerCase())) {
             generateChamps(champion, champions)
           }
         }
       } else {
         for (let champion in champions) {
           try {
-            document.getElementById(champion.toLowerCase()).remove()
+            document.getElementById(champion).remove()
           } catch (e) {}
         }
         
