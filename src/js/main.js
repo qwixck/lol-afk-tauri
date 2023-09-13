@@ -13,7 +13,7 @@ function changeSetting(setting) {
     case "top": {
       invoke("get_setting", { setting: "position" }).then(result => {
         const button = document.getElementById(result)
-        button.style.backgroundColor = "#2f2f2f"
+        button.style.backgroundColor = "#0f0f0f98"
         button.removeAttribute("disabled")
       }).catch(e => console.error(e))
       invoke("change_setting", { key: "position", value: "top"})
@@ -25,7 +25,7 @@ function changeSetting(setting) {
     case "jungle": {
       invoke("get_setting", { setting: "position" }).then(result => {
         const button = document.getElementById(result)
-        button.style.backgroundColor = "#2f2f2f"
+        button.style.backgroundColor = "#0f0f0f98"
         button.removeAttribute("disabled")
       }).catch(e => console.error(e))
       invoke("change_setting", { key: "position", value: "jungle"})
@@ -37,7 +37,7 @@ function changeSetting(setting) {
     case "middle": {
       invoke("get_setting", { setting: "position" }).then(result => {
         const button = document.getElementById(result)
-        button.style.backgroundColor = "#2f2f2f"
+        button.style.backgroundColor = "#0f0f0f98"
         button.removeAttribute("disabled")
       }).catch(e => console.error(e))
       invoke("change_setting", { key: "position", value: "middle"})
@@ -49,7 +49,7 @@ function changeSetting(setting) {
     case "bottom": {
       invoke("get_setting", { setting: "position" }).then(result => {
         const button = document.getElementById(result)
-        button.style.backgroundColor = "#2f2f2f"
+        button.style.backgroundColor = "#0f0f0f98"
         button.removeAttribute("disabled")
       }).catch(e => console.error(e))
       invoke("change_setting", { key: "position", value: "bottom"})
@@ -61,7 +61,7 @@ function changeSetting(setting) {
     case "utility": {
       invoke("get_setting", { setting: "position" }).then(result => {
         const button = document.getElementById(result)
-        button.style.backgroundColor = "#2f2f2f"
+        button.style.backgroundColor = "#0f0f0f98"
         button.removeAttribute("disabled")
       }).catch(e => console.error(e))
       invoke("change_setting", { key: "position", value: "utility"})
@@ -73,7 +73,7 @@ function changeSetting(setting) {
     case "pick": {
       invoke("get_setting", { setting: "type" }).then(result => {
         const button = document.getElementById(result)
-        button.style.backgroundColor = "#2f2f2f"
+        button.style.backgroundColor = "#0f0f0f98"
         button.removeAttribute("disabled")
       }).catch(e => console.error(e))
       invoke("change_setting", { key: "type", value: "pick"})
@@ -85,7 +85,7 @@ function changeSetting(setting) {
     case "ban": {
       invoke("get_setting", { setting: "type" }).then(result => {
         const button = document.getElementById(result)
-        button.style.backgroundColor = "#2f2f2f"
+        button.style.backgroundColor = "#0f0f0f98"
         button.removeAttribute("disabled")
       }).catch(e => console.error(e))
       invoke("change_setting", { key: "type", value: "ban"})
@@ -97,7 +97,7 @@ function changeSetting(setting) {
     case "drafts": {
       invoke("get_setting", { setting: "mode" }).then(result => {
         const button = document.getElementById(result)
-        button.style.backgroundColor = "#2f2f2f"
+        button.style.backgroundColor = "#0f0f0f98"
         button.removeAttribute("disabled")
       }).catch(e => console.error(e))
       invoke("change_setting", { key: "mode", value: "drafts"})
@@ -109,7 +109,7 @@ function changeSetting(setting) {
     case "blind": {
       invoke("get_setting", { setting: "mode" }).then(result => {
         const button = document.getElementById(result)
-        button.style.backgroundColor = "#2f2f2f"
+        button.style.backgroundColor = "#0f0f0f98"
         button.removeAttribute("disabled")
       }).catch(e => console.error(e))
       invoke("change_setting", { key: "mode", value: "blind"})
