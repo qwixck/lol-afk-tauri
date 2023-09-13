@@ -110,6 +110,10 @@ button:active {
   background-color: #0f0f0f69;
 }
 
+button:disabled {
+  cursor: not-allowed;
+}
+
 a:hover {
   color: #24c8db;
 }

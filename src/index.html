@@ -994,10 +994,19 @@
           <input type="text" placeholder="Search for champions" id="input">
         </div>
         <div class="row">
-          <button>Test1</button>
-          <button>test2</button>
-          <button>test3</button>
-          <button onclick="test()">testing</button>
+          <button onclick="changeSetting('top')" id="top">Top</button>
+          <button onclick="changeSetting('jungle')" id="jungle">Jungle</button>
+          <button onclick="changeSetting('middle')" id="middle">Middle</button>
+          <button onclick="changeSetting('bottom')" id="bottom">ADC</button>
+          <button onclick="changeSetting('utility')" id="utility">Support</button>
+        </div>
+        <div class="row">
+          <button onclick="changeSetting('pick')" id="pick">Pick</button>
+          <button onclick="changeSetting('ban')" id="ban">Ban</button>
+        </div>
+        <div class="row">
+          <button onclick="changeSetting('drafts')" id="drafts">Drafts</button>
+          <button onclick="changeSetting('blind')" id="blind">Blind</button>
         </div>
       </div>
     </div>

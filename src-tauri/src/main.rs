@@ -51,9 +51,36 @@ fn get_champions() -> String{
     return json.to_string();
 }
 
+#[tauri::command]
+fn get_setting(setting: String) -> serde_json::Value {
+    let file = std::fs::File::open(local_data_dir().unwrap().join("com.tauri.dev/data/settings.json")).unwrap();
+    let json: serde_json::Value = serde_json::from_reader(file).unwrap();
+
+    return json[setting].clone();
+}
+
+#[tauri::command]
+fn change_setting(key: String, value: String) {
+    let file = std::fs::File::open(local_data_dir().unwrap().join("com.tauri.dev/data/settings.json"))
+        .expect("Couldn't open file");
+
+    let mut json: serde_json::Value = serde_json::from_reader(file).unwrap();
+
+    json[key] = serde_json::Value::String(value);
+
+    let update_json = serde_json::to_string_pretty(&json)
+        .expect("Failed to serialize to JSON");
+
+    let mut file = std::fs::File::create(local_data_dir().unwrap().join("com.tauri.dev/data/settings.json"))
+        .expect("Failed to create file");
+
+    file.write_all(update_json.as_bytes())
+        .expect("Couldn't write to file");
+}
+
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![write, read, get_champions])
+        .invoke_handler(tauri::generate_handler![write, read, get_champions, change_setting, get_setting])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
