@@ -71,24 +71,24 @@ function changeSetting(setting) {
       break;
     }
     case "pick": {
-      invoke("get_setting", { setting: "type" }).then(result => {
+      invoke("get_setting", { setting: "type_" }).then(result => {
         const button = document.getElementById(result)
         button.style.backgroundColor = "#0f0f0f98"
         button.removeAttribute("disabled")
       }).catch(e => console.error(e))
-      invoke("change_setting", { key: "type", value: "pick"})
+      invoke("change_setting", { key: "type_", value: "pick"})
       const button = document.getElementById("pick")
       button.style.backgroundColor = "green"
       button.disabled = true
       break;
     }
     case "ban": {
-      invoke("get_setting", { setting: "type" }).then(result => {
+      invoke("get_setting", { setting: "type_" }).then(result => {
         const button = document.getElementById(result)
         button.style.backgroundColor = "#0f0f0f98"
         button.removeAttribute("disabled")
       }).catch(e => console.error(e))
-      invoke("change_setting", { key: "type", value: "ban"})
+      invoke("change_setting", { key: "type_", value: "ban"})
       const button = document.getElementById("ban")
       button.style.backgroundColor = "green"
       button.disabled = true
@@ -119,6 +119,17 @@ function changeSetting(setting) {
       break;
     }
   }
+
+  const buttons = document.getElementById("champions").children
+  for (let i = 0; i < buttons.length; i++) {
+    invoke("read", { name: buttons[i].id }).then(result => {
+      if (result) {
+        buttons[i].style.backgroundColor = "green";
+      } else {
+        buttons[i].style.backgroundColor = "#0f0f0f98";
+      }
+    }).catch(e => {console.warn(e)})
+  }
 }
 
 function generateChamps(champion, champions) {
@@ -141,6 +152,15 @@ function generateChamps(champion, champions) {
 
 document.addEventListener("DOMContentLoaded", () => {
   const buttons = document.getElementById("champions").children
+  const _setting = ["position", "type_", "mode"]
+
+  for (let i = 0; i < _setting.length; i++) {
+    invoke("get_setting", { setting: _setting[i] }).then(result => {
+      const button = document.getElementById(result)
+      button.style.backgroundColor = "green"
+      button.disabled = true
+    })
+  }
 
   for (let i = 0; i < buttons.length; i++) {
     invoke("read", { name: buttons[i].id }).then(result => {
@@ -148,15 +168,6 @@ document.addEventListener("DOMContentLoaded", () => {
         buttons[i].style.backgroundColor = "green";
       }
     }).catch(e => {console.warn(e)})
-  }
-
-  const _setting = ["position", "type", "mode"]
-  for (let i = 0; i < _setting.length; i++) {
-    invoke("get_setting", { setting: _setting[i] }).then(result => {
-      const button = document.getElementById(result)
-      button.style.backgroundColor = "green"
-      button.disabled = true
-    })
   }
 
   invoke("get_champions").then(_champions => {
