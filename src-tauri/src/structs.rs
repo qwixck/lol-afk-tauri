@@ -30,3 +30,10 @@ pub struct Blind {
 pub struct Ban {
     pub drafts: Drafts
 }
+
+#[derive(Deserialize, Serialize)]
+pub struct Settings {
+    pub type_: String,
+    pub mode: String,
+    pub position: String
+}

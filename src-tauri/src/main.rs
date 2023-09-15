@@ -1,28 +1,125 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-mod config_struct;
+mod structs;
 use std::io::Write;
-use config_struct::Config;
+use structs::{Settings, Config};
+use serde_json;
 use tauri::api::path::local_data_dir;
 
 #[tauri::command]
 fn write(name: String) -> bool {
     let is_in_config: bool;
     let file = std::fs::File::open(local_data_dir().unwrap().join("com.tauri.dev/data/config.json")).unwrap();
-    let mut json: Config = serde_json::from_reader(file).unwrap();
+    let mut config: Config = serde_json::from_reader(file).unwrap();
+    let file = std::fs::File::open(local_data_dir().unwrap().join("com.tauri.dev/data/settings.json")).unwrap();
+    let settings: Settings = serde_json::from_reader(file).unwrap();
 
-    let index = json.pick.drafts.middle.iter().position(|x| x == &name);
+    match settings.type_.as_str() {
+        "pick" => match settings.mode.as_str() {
+            "drafts" => match settings.position.as_str() {
+                "top" => {
+                    if let Some(index) = config.pick.drafts.top.iter().position(|x| x == &name) {
+                        config.pick.drafts.top.remove(index);
+                        is_in_config = true;
+                    } else {
+                        is_in_config = false;
+                    }
+                },
+                "jungle" => {
+                    if let Some(index) = config.pick.drafts.jungle.iter().position(|x| x == &name) {
+                        config.pick.drafts.jungle.remove(index);
+                        is_in_config = true;
+                    } else {
+                        is_in_config = false;
+                    }
+                }
+                "middle" => {
+                    if let Some(index) = config.pick.drafts.jungle.iter().position(|x| x == &name) {
+                        config.pick.drafts.middle.remove(index);
+                        is_in_config = true;
+                    } else {
+                        is_in_config = false;
+                    }
+                }
+                "bottom" => {
+                    if let Some(index) = config.pick.drafts.bottom.iter().position(|x| x == &name) {
+                        config.pick.drafts.bottom.remove(index);
+                        is_in_config = true;
+                    } else {
+                        is_in_config = false;
+                    }
+                }
+                "utility" => {
+                    if let Some(index) = config.pick.drafts.utility.iter().position(|x| x == &name) {
+                        config.pick.drafts.utility.remove(index);
+                        is_in_config = true;
+                    } else {
+                        is_in_config = false;
+                    }
+                }
+                &_ => todo!()
+            },
+            "blind" => {
+                if let Some(index) = config.pick.blind.middle.iter().position(|x| x == &name) {
+                    config.pick.blind.middle.remove(index);
+                    is_in_config = true;
+                } else {
+                    is_in_config = false;
+                }
+            }
+            &_ => todo!()
+        },
+        "ban" => match settings.mode.as_str() {
+            "drafts" => match settings.position.as_str() {
+                "top" => {
+                    if let Some(index) = config.ban.drafts.top.iter().position(|x| x == &name) {
+                        config.ban.drafts.top.remove(index);
+                        is_in_config = true;
+                    } else {
+                        is_in_config = false;
+                    }
+                },
+                "jungle" => {
+                    if let Some(index) = config.ban.drafts.jungle.iter().position(|x| x == &name) {
+                        config.ban.drafts.jungle.remove(index);
+                        is_in_config = true;
+                    } else {
+                        is_in_config = false;
+                    }
+                }
+                "middle" => {
+                    if let Some(index) = config.ban.drafts.jungle.iter().position(|x| x == &name) {
+                        config.ban.drafts.middle.remove(index);
+                        is_in_config = true;
+                    } else {
+                        is_in_config = false;
+                    }
+                }
+                "bottom" => {
+                    if let Some(index) = config.ban.drafts.bottom.iter().position(|x| x == &name) {
+                        config.ban.drafts.bottom.remove(index);
+                        is_in_config = true;
+                    } else {
+                        is_in_config = false;
+                    }
+                }
+                "utility" => {
+                    if let Some(index) = config.ban.drafts.utility.iter().position(|x| x == &name) {
+                        config.ban.drafts.utility.remove(index);
+                        is_in_config = true;
+                    } else {
+                        is_in_config = false;
+                    }
+                }
+                &_ => todo!()
+            },
+            &_ => todo!()
+        },
+        &_ => todo!()
+    };
 
-    if let Some(iindex) = index {
-        json.pick.drafts.middle.remove(iindex);
-        is_in_config = true;
-    } else {
-        json.pick.drafts.middle.push(name);
-        is_in_config = false;
-    }
-
-    let updated_json = serde_json::to_string_pretty(&json)
+    let updated_json = serde_json::to_string_pretty(&config)
         .expect("Failed to serialize to JSON");
     
     let mut file = std::fs::File::create(local_data_dir().unwrap().join("com.tauri.dev/data/config.json"))
@@ -36,11 +133,41 @@ fn write(name: String) -> bool {
 
 #[tauri::command]
 fn read(name: String) -> bool {
+    let file = std::fs::File::open(local_data_dir().unwrap().join("com.tauri.dev/data/settings.json")).unwrap();
+    let settings: Settings = serde_json::from_reader(file).unwrap();
     let file = std::fs::File::open(local_data_dir().unwrap().join("com.tauri.dev/data/config.json")).unwrap();
-    let json: Config = serde_json::from_reader(file).unwrap();
-    let index = json.pick.drafts.middle.iter().position(|x| x == &name);
+    let config: Config = serde_json::from_reader(file).unwrap();
 
-    return index.is_some();
+    // TODO: fix crashing when pressing blind button
+    let something = match settings.type_.as_str() {
+        "pick" => match settings.mode.as_str() {
+            "drafts" => match settings.position.as_str() {
+                "top" => config.pick.drafts.top.iter().position(|x| x == &name),
+                "jungle" => config.pick.drafts.jungle.iter().position(|x| x == &name),
+                "middle" => config.pick.drafts.middle.iter().position(|x| x == &name),
+                "bottom" => config.pick.drafts.bottom.iter().position(|x| x == &name),
+                "utility" => config.pick.drafts.utility.iter().position(|x| x == &name),
+                &_ => todo!()
+            },
+            "blind" => config.pick.blind.middle.iter().position(|x| x == &name),
+            &_ => todo!()
+        },
+        "ban" => match settings.mode.as_str() {
+            "drafts" => match settings.position.as_str() {
+                "top" => config.pick.drafts.top.iter().position(|x| x == &name),
+                "jungle" => config.ban.drafts.jungle.iter().position(|x| x == &name),
+                "middle" => config.ban.drafts.middle.iter().position(|x| x == &name),
+                "bottom" => config.ban.drafts.bottom.iter().position(|x| x == &name),
+                "utility" => config.ban.drafts.utility.iter().position(|x| x == &name),
+                &_ => todo!()
+            },
+            &_ => todo!()
+        },
+        &_ => todo!()
+    };
+
+    return something.is_some()
+    
 }
 
 #[tauri::command]
@@ -80,7 +207,7 @@ fn change_setting(key: String, value: String) {
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![write, read, get_champions, change_setting, get_setting])
+        .invoke_handler(tauri::generate_handler![read, write, get_champions, change_setting, get_setting])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
