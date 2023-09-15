@@ -23,6 +23,7 @@ fn write(name: String) -> bool {
                         config.pick.drafts.top.remove(index);
                         is_in_config = true;
                     } else {
+                        config.pick.drafts.top.push(name);
                         is_in_config = false;
                     }
                 },
@@ -31,6 +32,7 @@ fn write(name: String) -> bool {
                         config.pick.drafts.jungle.remove(index);
                         is_in_config = true;
                     } else {
+                        config.pick.drafts.jungle.push(name);
                         is_in_config = false;
                     }
                 }
@@ -39,6 +41,7 @@ fn write(name: String) -> bool {
                         config.pick.drafts.middle.remove(index);
                         is_in_config = true;
                     } else {
+                        config.pick.drafts.middle.push(name);
                         is_in_config = false;
                     }
                 }
@@ -47,6 +50,7 @@ fn write(name: String) -> bool {
                         config.pick.drafts.bottom.remove(index);
                         is_in_config = true;
                     } else {
+                        config.pick.drafts.bottom.push(name);
                         is_in_config = false;
                     }
                 }
@@ -55,6 +59,7 @@ fn write(name: String) -> bool {
                         config.pick.drafts.utility.remove(index);
                         is_in_config = true;
                     } else {
+                        config.pick.drafts.utility.push(name);
                         is_in_config = false;
                     }
                 }
@@ -65,6 +70,7 @@ fn write(name: String) -> bool {
                     config.pick.blind.middle.remove(index);
                     is_in_config = true;
                 } else {
+                    config.pick.blind.middle.push(name);
                     is_in_config = false;
                 }
             }
@@ -77,6 +83,7 @@ fn write(name: String) -> bool {
                         config.ban.drafts.top.remove(index);
                         is_in_config = true;
                     } else {
+                        config.pick.drafts.top.push(name);
                         is_in_config = false;
                     }
                 },
@@ -85,6 +92,7 @@ fn write(name: String) -> bool {
                         config.ban.drafts.jungle.remove(index);
                         is_in_config = true;
                     } else {
+                        config.pick.drafts.jungle.push(name);
                         is_in_config = false;
                     }
                 }
@@ -93,6 +101,7 @@ fn write(name: String) -> bool {
                         config.ban.drafts.middle.remove(index);
                         is_in_config = true;
                     } else {
+                        config.pick.drafts.middle.push(name);
                         is_in_config = false;
                     }
                 }
@@ -101,6 +110,7 @@ fn write(name: String) -> bool {
                         config.ban.drafts.bottom.remove(index);
                         is_in_config = true;
                     } else {
+                        config.pick.drafts.bottom.push(name);
                         is_in_config = false;
                     }
                 }
@@ -109,6 +119,7 @@ fn write(name: String) -> bool {
                         config.ban.drafts.utility.remove(index);
                         is_in_config = true;
                     } else {
+                        config.pick.drafts.utility.push(name);
                         is_in_config = false;
                     }
                 }
