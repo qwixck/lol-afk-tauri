@@ -83,7 +83,7 @@ fn write(name: String) -> bool {
                         config.ban.drafts.top.remove(index);
                         is_in_config = true;
                     } else {
-                        config.pick.drafts.top.push(name);
+                        config.ban.drafts.top.push(name);
                         is_in_config = false;
                     }
                 },
@@ -92,7 +92,7 @@ fn write(name: String) -> bool {
                         config.ban.drafts.jungle.remove(index);
                         is_in_config = true;
                     } else {
-                        config.pick.drafts.jungle.push(name);
+                        config.ban.drafts.jungle.push(name);
                         is_in_config = false;
                     }
                 }
@@ -101,7 +101,7 @@ fn write(name: String) -> bool {
                         config.ban.drafts.middle.remove(index);
                         is_in_config = true;
                     } else {
-                        config.pick.drafts.middle.push(name);
+                        config.ban.drafts.middle.push(name);
                         is_in_config = false;
                     }
                 }
@@ -110,7 +110,7 @@ fn write(name: String) -> bool {
                         config.ban.drafts.bottom.remove(index);
                         is_in_config = true;
                     } else {
-                        config.pick.drafts.bottom.push(name);
+                        config.ban.drafts.bottom.push(name);
                         is_in_config = false;
                     }
                 }
@@ -119,7 +119,7 @@ fn write(name: String) -> bool {
                         config.ban.drafts.utility.remove(index);
                         is_in_config = true;
                     } else {
-                        config.pick.drafts.utility.push(name);
+                        config.ban.drafts.utility.push(name);
                         is_in_config = false;
                     }
                 }
