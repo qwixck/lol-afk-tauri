@@ -149,7 +149,6 @@ fn read(name: String) -> bool {
     let file = std::fs::File::open(local_data_dir().unwrap().join("com.tauri.dev/data/config.json")).unwrap();
     let config: Config = serde_json::from_reader(file).unwrap();
 
-    // TODO: fix crashing when pressing blind button
     let something = match settings.type_.as_str() {
         "pick" => match settings.mode.as_str() {
             "drafts" => match settings.position.as_str() {

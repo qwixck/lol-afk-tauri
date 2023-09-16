@@ -104,6 +104,17 @@ function changeSetting(setting) {
       const button = document.getElementById("drafts")
       button.style.backgroundColor = "green"
       button.disabled = true
+      const button2 = document.getElementById("ban")
+      button2.style.backgroundColor = "#0f0f0f98"
+      button2.disabled = false
+      const buttons = document.getElementById("positions").children
+      for (let i = 0; i < buttons.length; i++) {
+        buttons[i].style.backgroundColor = "#0f0f0f98"
+        buttons[i].disabled = false
+      }
+      invoke("get_setting", { setting: "position" }).then(result => {
+        document.getElementById(result).style.backgroundColor = "green"
+      }).catch(e => console.error(e))
       break;
     }
     case "blind": {
@@ -116,6 +127,14 @@ function changeSetting(setting) {
       const button = document.getElementById("blind")
       button.style.backgroundColor = "green"
       button.disabled = true
+      const button2 = document.getElementById("ban")
+      button2.style.backgroundColor = "red"
+      button2.disabled = true
+      const buttons = document.getElementById("positions").children
+      for (let i = 0; i < buttons.length; i++) {
+        buttons[i].style.backgroundColor = "red"
+        buttons[i].disabled = true
+      }
       break;
     }
   }
