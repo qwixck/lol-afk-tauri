@@ -115,6 +115,9 @@ function changeSetting(setting) {
       invoke("get_setting", { setting: "position" }).then(result => {
         document.getElementById(result).style.backgroundColor = "green"
       }).catch(e => console.error(e))
+      invoke("get_setting", { setting: "type_" }).then(result => {
+        document.getElementById(result).style.backgroundColor = "green"
+      }).catch(e => console.error(e))
       break;
     }
     case "blind": {
@@ -135,6 +138,10 @@ function changeSetting(setting) {
         buttons[i].style.backgroundColor = "red"
         buttons[i].disabled = true
       }
+      invoke("change_setting", { key: "type_", value: "pick" })
+      invoke("get_setting", { setting: "type_" }).then(result => {
+        document.getElementById(result).style.backgroundColor = "green"
+      }).catch(e => console.error(e))
       break;
     }
   }
@@ -180,6 +187,19 @@ document.addEventListener("DOMContentLoaded", () => {
       button.disabled = true
     })
   }
+
+  invoke("get_setting", { setting: "mode" }).then(result => {
+    if (result === "blind") {
+      const positions = document.getElementById("positions").children
+      for (let i = 0; i < positions.length; i++) {
+        positions[i].style.backgroundColor = "red"
+        positions[i].disabled = true
+      }
+      const ban = document.getElementById("ban")
+      ban.style.backgroundColor = "red"
+      ban.disabled = true
+    }
+  })
 
   for (let i = 0; i < buttons.length; i++) {
     invoke("read", { name: buttons[i].id }).then(result => {
