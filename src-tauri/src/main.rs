@@ -2,6 +2,9 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 mod structs;
+mod lol;
+
+use lol::connect;
 use std::io::Write;
 use structs::{Settings, Config};
 use serde_json;
@@ -130,14 +133,11 @@ fn write(name: String) -> bool {
         &_ => todo!()
     };
 
-    let updated_json = serde_json::to_string_pretty(&config)
-        .expect("Failed to serialize to JSON");
+    let updated_json = serde_json::to_string_pretty(&config).unwrap();
     
-    let mut file = std::fs::File::create(local_data_dir().unwrap().join("com.tauri.dev/data/config.json"))
-        .expect("Failed to create file");
+    let mut file = std::fs::File::create(local_data_dir().unwrap().join("com.tauri.dev/data/config.json")).unwrap();
     
-    file.write_all(updated_json.as_bytes())
-        .expect("Couldn't write to file");
+    file.write_all(updated_json.as_bytes()).unwrap();
 
     return is_in_config;
 }
@@ -205,19 +205,16 @@ fn change_setting(key: String, value: String) {
 
     json[key] = serde_json::Value::String(value);
 
-    let update_json = serde_json::to_string_pretty(&json)
-        .expect("Failed to serialize to JSON");
+    let update_json = serde_json::to_string_pretty(&json).unwrap();
 
-    let mut file = std::fs::File::create(local_data_dir().unwrap().join("com.tauri.dev/data/settings.json"))
-        .expect("Failed to create file");
+    let mut file = std::fs::File::create(local_data_dir().unwrap().join("com.tauri.dev/data/settings.json")).unwrap();
 
-    file.write_all(update_json.as_bytes())
-        .expect("Couldn't write to file");
+    file.write_all(update_json.as_bytes()).unwrap();
 }
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![read, write, get_champions, change_setting, get_setting])
+        .invoke_handler(tauri::generate_handler![read, write, get_champions, change_setting, get_setting, connect])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
