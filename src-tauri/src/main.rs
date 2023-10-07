@@ -40,7 +40,7 @@ fn write(name: String) -> bool {
                     }
                 }
                 "middle" => {
-                    if let Some(index) = config.pick.drafts.jungle.iter().position(|x| x == &name) {
+                    if let Some(index) = config.pick.drafts.middle.iter().position(|x| x == &name) {
                         config.pick.drafts.middle.remove(index);
                         is_in_config = true;
                     } else {
@@ -100,7 +100,7 @@ fn write(name: String) -> bool {
                     }
                 }
                 "middle" => {
-                    if let Some(index) = config.ban.drafts.jungle.iter().position(|x| x == &name) {
+                    if let Some(index) = config.ban.drafts.middle.iter().position(|x| x == &name) {
                         config.ban.drafts.middle.remove(index);
                         is_in_config = true;
                     } else {
