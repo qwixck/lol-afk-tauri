@@ -4,19 +4,16 @@
 mod structs;
 mod lol;
 
-use lol::connect;
 use std::io::Write;
-use structs::{Settings, Config};
-use serde_json;
 use tauri::api::path::local_data_dir;
 
 #[tauri::command]
 fn write(name: String) -> bool {
     let is_in_config: bool;
     let file = std::fs::File::open(local_data_dir().unwrap().join("com.tauri.dev/data/config.json")).unwrap();
-    let mut config: Config = serde_json::from_reader(file).unwrap();
+    let mut config: structs::Config = serde_json::from_reader(file).unwrap();
     let file = std::fs::File::open(local_data_dir().unwrap().join("com.tauri.dev/data/settings.json")).unwrap();
-    let settings: Settings = serde_json::from_reader(file).unwrap();
+    let settings: structs::Settings = serde_json::from_reader(file).unwrap();
 
     match settings.type_.as_str() {
         "pick" => match settings.mode.as_str() {
@@ -145,9 +142,9 @@ fn write(name: String) -> bool {
 #[tauri::command]
 fn read(name: String) -> bool {
     let file = std::fs::File::open(local_data_dir().unwrap().join("com.tauri.dev/data/settings.json")).unwrap();
-    let settings: Settings = serde_json::from_reader(file).unwrap();
+    let settings: structs::Settings = serde_json::from_reader(file).unwrap();
     let file = std::fs::File::open(local_data_dir().unwrap().join("com.tauri.dev/data/config.json")).unwrap();
-    let config: Config = serde_json::from_reader(file).unwrap();
+    let config: structs::Config = serde_json::from_reader(file).unwrap();
 
     let something = match settings.type_.as_str() {
         "pick" => match settings.mode.as_str() {
@@ -157,10 +154,10 @@ fn read(name: String) -> bool {
                 "middle" => config.pick.drafts.middle.iter().position(|x| x == &name),
                 "bottom" => config.pick.drafts.bottom.iter().position(|x| x == &name),
                 "utility" => config.pick.drafts.utility.iter().position(|x| x == &name),
-                &_ => todo!()
+                &_ => std::panic!("picked other position in drafts pick")
             },
             "blind" => config.pick.blind.middle.iter().position(|x| x == &name),
-            &_ => todo!()
+            &_ => std::panic!("picked blind and other than middle")
         },
         "ban" => match settings.mode.as_str() {
             "drafts" => match settings.position.as_str() {
@@ -169,11 +166,11 @@ fn read(name: String) -> bool {
                 "middle" => config.ban.drafts.middle.iter().position(|x| x == &name),
                 "bottom" => config.ban.drafts.bottom.iter().position(|x| x == &name),
                 "utility" => config.ban.drafts.utility.iter().position(|x| x == &name),
-                &_ => todo!()
+                &_ => std::panic!("picked other position in drafts ban")
             },
-            &_ => todo!()
+            &_ => std::panic!("bro can ban in blinds or other gamemode")
         },
-        &_ => todo!()
+        &_ => std::panic!("bro know other type than pick and drafts (it could be an error if he's spectator?)")
     };
 
     return something.is_some()
@@ -182,7 +179,7 @@ fn read(name: String) -> bool {
 
 #[tauri::command]
 fn get_champions() -> String{
-    let file = std::fs::File::open(local_data_dir().unwrap().join("com.tauri.dev/data/champions.json")).unwrap();
+    let file = std::fs::File::open("../src/data/champions.json").unwrap();
     let json: serde_json::Value = serde_json::from_reader(file).unwrap();
     
     return json.to_string();
@@ -213,8 +210,25 @@ fn change_setting(key: String, value: String) {
 }
 
 fn main() {
+    if !local_data_dir().unwrap().join("com.tauri.dev").exists() {
+        std::fs::create_dir_all(local_data_dir().unwrap().join("com.tauri.dev/data")).unwrap();
+
+        let file = std::fs::File::create(local_data_dir().unwrap().join("com.tauri.dev/data/config.json")).unwrap();
+        let data = serde_json::json!({
+            "pick": {"drafts": {"top": [],"jungle": [],"middle": [],"bottom": [],"utility": []},"blind": {"middle": []}},
+            "ban": {"drafts": {"top": [],"jungle": [],"middle": [],"bottom": [],"utility": []}}
+        });
+        serde_json::to_writer_pretty(file, &data).unwrap();
+
+        let file = std::fs::File::create(local_data_dir().unwrap().join("com.tauri.dev/data/settings.json")).unwrap();
+        let data = serde_json::json!({
+            "mode": "drafts", "position": "middle", "type_": "pick"
+        });
+        serde_json::to_writer_pretty(file, &data).unwrap();
+    }
+
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![read, write, get_champions, change_setting, get_setting, connect])
+        .invoke_handler(tauri::generate_handler![read, write, get_champions, change_setting, get_setting, lol::connect])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
