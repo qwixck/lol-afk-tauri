@@ -154,10 +154,10 @@ fn read(name: String) -> bool {
                 "middle" => config.pick.drafts.middle.iter().position(|x| x == &name),
                 "bottom" => config.pick.drafts.bottom.iter().position(|x| x == &name),
                 "utility" => config.pick.drafts.utility.iter().position(|x| x == &name),
-                &_ => std::panic!("picked other position in drafts pick")
+                &_ => panic!("picked other position in drafts pick")
             },
             "blind" => config.pick.blind.middle.iter().position(|x| x == &name),
-            &_ => std::panic!("picked blind and other than middle")
+            &_ => panic!("picked blind and other than middle")
         },
         "ban" => match settings.mode.as_str() {
             "drafts" => match settings.position.as_str() {
@@ -166,11 +166,11 @@ fn read(name: String) -> bool {
                 "middle" => config.ban.drafts.middle.iter().position(|x| x == &name),
                 "bottom" => config.ban.drafts.bottom.iter().position(|x| x == &name),
                 "utility" => config.ban.drafts.utility.iter().position(|x| x == &name),
-                &_ => std::panic!("picked other position in drafts ban")
+                &_ => panic!("picked other position in drafts ban")
             },
-            &_ => std::panic!("bro can ban in blinds or other gamemode")
+            &_ => panic!("bro can ban in blinds or other gamemode")
         },
-        &_ => std::panic!("blud knows other type than pick and drafts (it could be an error if he's spectator?)")
+        &_ => panic!("blud knows other type than pick and drafts (it could be an error if he's spectator?)")
     };
 
     return something.is_some()
