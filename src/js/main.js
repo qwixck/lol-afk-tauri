@@ -242,9 +242,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const connect = document.getElementById("connect")
   connect.onclick = () => {
-    invoke("connect")
+    conn = invoke("connect")
     connect.style.backgroundColor = "green"
     connect.disabled = true
-    alert("connected")
+    conn.catch((error) => {
+      connect.style.backgroundColor = "#0f0f0f98"
+      connect.disabled = false
+      console.error(error)
+    })
   }
 })

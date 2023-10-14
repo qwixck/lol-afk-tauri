@@ -1,22 +1,26 @@
-use futures_util::StreamExt;
-use shaco::model::ingame::GameEvent::*;
+use futures_util::stream::StreamExt;
 
 #[tauri::command]
-pub async fn connect() {
-    let ingame_client = shaco::ingame::IngameClient::new().unwrap();
-    let mut event_stream = shaco::ingame::EventStream::from_ingame_client(ingame_client, None);
-
-    while let Some(game_event) = event_stream.next().await {
-        match game_event {
-            GameStart(event) => {
-                println!("Game started! Time: {}", event.event_time);
-            }
-            TurretKilled(event) => {
-                println!("Turred destyoyed! Killer: {}, time: {}", event.killer_name, event.event_time);
-            }
-            _ => {
-                println!("Unknowm event. {:?}", game_event);
-            }
-        }
+pub async fn connect() -> Result<(), String> {
+    if let Err(error) = lcu_connect().await {
+        eprintln!("Error connecting: {:?}", error);
+        return Err(error.to_string());
     }
+
+    Ok(())
+}
+
+async fn lcu_connect() -> Result<(), shaco::error::LcuWebsocketError> {
+    let mut client = shaco::ws::LcuWebsocketClient::connect().await?;
+    client
+        .subscribe(shaco::model::ws::LcuSubscriptionType::JsonApiEvent("/lol-champ-select/v1/session".to_string()))
+        .await
+        .unwrap();
+
+    while let Some(event) = client.next().await {
+        println!("Event: {:?}", event);
+    }
+
+    Ok(())
+
 }

@@ -170,7 +170,7 @@ fn read(name: String) -> bool {
             },
             &_ => std::panic!("bro can ban in blinds or other gamemode")
         },
-        &_ => std::panic!("bro know other type than pick and drafts (it could be an error if he's spectator?)")
+        &_ => std::panic!("blud knows other type than pick and drafts (it could be an error if he's spectator?)")
     };
 
     return something.is_some()
