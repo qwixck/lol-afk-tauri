@@ -127,6 +127,7 @@ function changeSetting(setting) {
         button.removeAttribute("disabled")
       }).catch(e => console.error(e))
       invoke("change_setting", { key: "mode", value: "blind"})
+      invoke("change_setting", { key: "position", value: "middle"})
       const button = document.getElementById("blind")
       button.style.backgroundColor = "green"
       button.disabled = true
