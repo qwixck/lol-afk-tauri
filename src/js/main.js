@@ -8,102 +8,50 @@ function champ(name) {
   }).catch(e => {console.warn(e)})
 }
 
+function modifySetting(key, value) {
+  invoke("get_setting", { setting: key }).then(result => {
+    const button = document.getElementById(result)
+    button.style.backgroundColor = "#0f0f0f98"
+    button.removeAttribute("disabled")
+  }).catch(e => console.error(e))
+  invoke("change_setting", { key: key , value: value})
+  const button = document.getElementById(value)
+  button.style.backgroundColor = "green"
+  button.disabled = true
+}
+
 function changeSetting(setting) {
   switch (setting) {
     case "top": {
-      invoke("get_setting", { setting: "position" }).then(result => {
-        const button = document.getElementById(result)
-        button.style.backgroundColor = "#0f0f0f98"
-        button.removeAttribute("disabled")
-      }).catch(e => console.error(e))
-      invoke("change_setting", { key: "position", value: "top"})
-      const button = document.getElementById("top")
-      button.style.backgroundColor = "green"
-      button.disabled = true
-      break;
+      modifySetting("position", "top")
+      break
     }
     case "jungle": {
-      invoke("get_setting", { setting: "position" }).then(result => {
-        const button = document.getElementById(result)
-        button.style.backgroundColor = "#0f0f0f98"
-        button.removeAttribute("disabled")
-      }).catch(e => console.error(e))
-      invoke("change_setting", { key: "position", value: "jungle"})
-      const button = document.getElementById("jungle")
-      button.style.backgroundColor = "green"
-      button.disabled = true
-      break;
+      modifySetting("position", "jungle")
+      break
     }
     case "middle": {
-      invoke("get_setting", { setting: "position" }).then(result => {
-        const button = document.getElementById(result)
-        button.style.backgroundColor = "#0f0f0f98"
-        button.removeAttribute("disabled")
-      }).catch(e => console.error(e))
-      invoke("change_setting", { key: "position", value: "middle"})
-      const button = document.getElementById("middle")
-      button.style.backgroundColor = "green"
-      button.disabled = true
-      break;
+      modifySetting("position", "middle")
+      break
     }
     case "bottom": {
-      invoke("get_setting", { setting: "position" }).then(result => {
-        const button = document.getElementById(result)
-        button.style.backgroundColor = "#0f0f0f98"
-        button.removeAttribute("disabled")
-      }).catch(e => console.error(e))
-      invoke("change_setting", { key: "position", value: "bottom"})
-      const button = document.getElementById("bottom")
-      button.style.backgroundColor = "green"
-      button.disabled = true
-      break;
+      modifySetting("position", "bottom")
+      break
     }
     case "utility": {
-      invoke("get_setting", { setting: "position" }).then(result => {
-        const button = document.getElementById(result)
-        button.style.backgroundColor = "#0f0f0f98"
-        button.removeAttribute("disabled")
-      }).catch(e => console.error(e))
-      invoke("change_setting", { key: "position", value: "utility"})
-      const button = document.getElementById("utility")
-      button.style.backgroundColor = "green"
-      button.disabled = true
-      break;
+      modifySetting("position", "utility")
+      break
     }
     case "pick": {
-      invoke("get_setting", { setting: "type_" }).then(result => {
-        const button = document.getElementById(result)
-        button.style.backgroundColor = "#0f0f0f98"
-        button.removeAttribute("disabled")
-      }).catch(e => console.error(e))
-      invoke("change_setting", { key: "type_", value: "pick"})
-      const button = document.getElementById("pick")
-      button.style.backgroundColor = "green"
-      button.disabled = true
-      break;
+      modifySetting("type_", "pick")
+      break
     }
     case "ban": {
-      invoke("get_setting", { setting: "type_" }).then(result => {
-        const button = document.getElementById(result)
-        button.style.backgroundColor = "#0f0f0f98"
-        button.removeAttribute("disabled")
-      }).catch(e => console.error(e))
-      invoke("change_setting", { key: "type_", value: "ban"})
-      const button = document.getElementById("ban")
-      button.style.backgroundColor = "green"
-      button.disabled = true
-      break;
+      modifySetting("type_", "ban")
+      break
     }
     case "drafts": {
-      invoke("get_setting", { setting: "mode" }).then(result => {
-        const button = document.getElementById(result)
-        button.style.backgroundColor = "#0f0f0f98"
-        button.removeAttribute("disabled")
-      }).catch(e => console.error(e))
-      invoke("change_setting", { key: "mode", value: "drafts"})
-      const button = document.getElementById("drafts")
-      button.style.backgroundColor = "green"
-      button.disabled = true
+      modifySetting("mode", "drafts")
       const button2 = document.getElementById("ban")
       button2.style.backgroundColor = "#0f0f0f98"
       button2.disabled = false
@@ -121,16 +69,8 @@ function changeSetting(setting) {
       break;
     }
     case "blind": {
-      invoke("get_setting", { setting: "mode" }).then(result => {
-        const button = document.getElementById(result)
-        button.style.backgroundColor = "#0f0f0f98"
-        button.removeAttribute("disabled")
-      }).catch(e => console.error(e))
-      invoke("change_setting", { key: "mode", value: "blind"})
+      modifySetting("mode", "blind")
       invoke("change_setting", { key: "position", value: "middle"})
-      const button = document.getElementById("blind")
-      button.style.backgroundColor = "green"
-      button.disabled = true
       const button2 = document.getElementById("ban")
       button2.style.backgroundColor = "red"
       button2.disabled = true
@@ -159,7 +99,7 @@ function changeSetting(setting) {
   }
 }
 
-function generateChamps(champion, champions) {
+function generateChamp(champion, champions) {
   const element = document.createElement("button")
   element.addEventListener("click", () => champ(champion))
   element.id = champion
@@ -224,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         for (let champion in champions) {
           if (champion.includes(input.value.toLowerCase())) {
-            generateChamps(champion, champions)
+            generateChamp(champion, champions)
           }
         }
       } else {
@@ -235,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         for (let champion in champions) {
-          generateChamps(champion, champions)
+          generateChamp(champion, champions)
         }
       }
     }
