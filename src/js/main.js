@@ -20,6 +20,24 @@ function modifySetting(key, value) {
   button.disabled = true
 }
 
+function generateChamp(champion, champions) {
+  const element = document.createElement("button")
+  element.addEventListener("click", () => champ(champion))
+  element.id = champion
+  invoke("read", { name: champion }).then(result => result ? element.style.backgroundColor = "green" : {})
+    .catch(e => {console.warn(e)})
+  const elementP = document.createElement("p")
+  elementP.textContent = champion.charAt(0).toUpperCase() + champion.slice(1)
+  const elementA = document.createElement("a")
+  const elementImg = document.createElement("img")
+  elementImg.src = `../assets/icons/icon${champions[champion]["key"]}.png`
+  elementImg.alt = champion
+  elementA.appendChild(elementImg)
+  element.appendChild(elementA)
+  element.appendChild(elementP)
+  document.getElementById("champions").appendChild(element)
+}
+
 function changeSetting(setting) {
   switch (setting) {
     case "top": {
@@ -97,24 +115,6 @@ function changeSetting(setting) {
       }
     }).catch(e => {console.warn(e)})
   }
-}
-
-function generateChamp(champion, champions) {
-  const element = document.createElement("button")
-  element.addEventListener("click", () => champ(champion))
-  element.id = champion
-  invoke("read", { name: champion }).then(result => result ? element.style.backgroundColor = "green" : {})
-    .catch(e => {console.warn(e)})
-  const elementP = document.createElement("p")
-  elementP.textContent = champion.charAt(0).toUpperCase() + champion.slice(1)
-  const elementA = document.createElement("a")
-  const elementImg = document.createElement("img")
-  elementImg.src = `../assets/icons/icon${champions[champion]["key"]}.png`
-  elementImg.alt = champion
-  elementA.appendChild(elementImg)
-  element.appendChild(elementA)
-  element.appendChild(elementP)
-  document.getElementById("champions").appendChild(element)
 }
 
 document.addEventListener("DOMContentLoaded", () => {
