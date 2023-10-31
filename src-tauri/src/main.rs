@@ -58,12 +58,13 @@ fn read(name: String) -> bool {
         [settings["mode"].as_str().unwrap()]
         [settings["position"].as_str().unwrap()]
         .as_array().unwrap().iter().position(|x| x == &name);
+    
     return something.is_some()
 }
 
 #[tauri::command]
 fn get_champions() -> String{
-    let file = std::fs::File::open("../src/data/champions.json").unwrap();
+    let file = std::fs::File::open("./data/champions.json").unwrap();
     let json: serde_json::Value = serde_json::from_reader(file).unwrap();
     
     return json.to_string();
