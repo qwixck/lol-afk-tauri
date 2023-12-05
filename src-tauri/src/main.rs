@@ -1,7 +1,6 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-mod structs;
 mod lol;
 
 use std::io::Write;
@@ -63,7 +62,7 @@ fn read(name: String) -> bool {
 }
 
 #[tauri::command]
-fn get_champions() -> String{
+fn get_champions() -> String {
     let file = std::fs::File::open("./data/champions.json").unwrap();
     let json: serde_json::Value = serde_json::from_reader(file).unwrap();
     
@@ -80,8 +79,7 @@ fn get_setting(setting: String) -> serde_json::Value {
 
 #[tauri::command]
 fn change_setting(key: String, value: String) {
-    let file = std::fs::File::open(local_data_dir().unwrap().join("lol-afk/data/settings.json"))
-        .expect("Couldn't open file");
+    let file = std::fs::File::open(local_data_dir().unwrap().join("lol-afk/data/settings.json")).unwrap();
 
     let mut json: serde_json::Value = serde_json::from_reader(file).unwrap();
 
