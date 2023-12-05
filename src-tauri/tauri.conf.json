@@ -15,17 +15,23 @@
       "all": false,
       "path": {
         "all": true
+      },
+      "fs": {
+        "scope": ["$DATA/*"]
       }
     },
     "bundle": {
       "active": true,
-      "targets": "all",
+      "targets": "msi",
       "identifier": "lol-afk",
       "icon": [
         "icons/icon32x32.png",
         "icons/icon128x128.png",
         "icons/icon128x128@2x.png",
         "icons/icon.ico"
+      ],
+      "resources": [
+        "./data/*"
       ]
     },
     "security": {
