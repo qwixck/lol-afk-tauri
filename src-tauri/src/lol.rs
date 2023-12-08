@@ -1,5 +1,9 @@
+#![allow(unused_variables)]
+#![allow(unused_assignments)]
+
 use futures_util::stream::StreamExt;
-use serde_json::json;
+use serde_json::{self, json};
+use tauri::api::path::local_data_dir;
 
 #[tauri::command]
 pub async fn connect() -> Result<(), String> {
@@ -12,6 +16,9 @@ pub async fn connect() -> Result<(), String> {
 }
 
 async fn lcu_connect() -> Result<(), shaco::error::LcuWebsocketError> {
+    let champions: serde_json::Value = serde_json::from_reader(std::fs::File::open("./data/champions.json").unwrap()).unwrap();
+    let config: serde_json::Value = serde_json::from_reader(std::fs::File::open(local_data_dir().unwrap().join("lol-afk/data/config.json")).unwrap()).unwrap();
+
     let rest = shaco::rest::RESTClient::new().unwrap();
     let mut client = shaco::ws::LcuWebsocketClient::connect().await?;
     client
@@ -53,26 +60,44 @@ async fn lcu_connect() -> Result<(), shaco::error::LcuWebsocketError> {
             }
         }
 
-        if rest
-            .get("/lol-champ-select/v1/current-champion".to_string())
-            .await
-            .unwrap() != 0 {
-                am_i_picking = false;  
-            }
-
         if phase == "ban".to_string() && lobby_phase == "BAN_PICK".to_string() && am_i_banning {
             todo!();
         }
 
         if phase == "pick".to_string() && lobby_phase == "BAN_PICK".to_string() && am_i_picking {
-            if let Err(_) = rest
-                .patch(format!("/lol-champ-select/v1/session/actions/{}", action_id).to_string(), json!({
-                    "championId": 39,
-                    "completed": true
-                }))
-                .await {
-                    am_i_picking = false;
+            mode = "blind".to_string();
+            position = "middle".to_string();
+
+            if config["pick"][mode.as_str()][position.as_str()].as_array().unwrap().iter().len() != 0 {
+                for i in config["pick"][mode.as_str()][position.as_str()].as_array().unwrap() {
+                    if let Ok(result) = rest
+                        .patch(format!("/lol-champ-select/v1/session/actions/{}", action_id).to_string(), json!({
+                            "championId": champions["data"][i.as_str().unwrap()]["key"].as_str().unwrap().parse::<u64>().unwrap(),
+                            "completed": true
+                        }))
+                        .await {
+                            am_i_picking = false;
+                            break;
+                    }
+
+                    if rest
+                        .get("/lol-champ-select/v1/current-champion".to_string())
+                        .await
+                        .unwrap().as_u64().unwrap() != 0 {
+                            am_i_picking = false;  
+                            break;
+                    }
+                }
             }
+
+            // if let Err(_) = rest
+            //     .patch(format!("/lol-champ-select/v1/session/actions/{}", action_id).to_string(), json!({
+            //         "championId": 39,
+            //         "completed": true
+            //     }))
+            //     .await {
+            //         am_i_picking = false;
+            // }
         }
     }
 
