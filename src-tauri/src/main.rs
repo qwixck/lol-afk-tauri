@@ -111,7 +111,7 @@ fn main() {
     }
 
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![read, write, get_champions, change_setting, get_setting, lol::connect])
+        .invoke_handler(tauri::generate_handler![read, write, get_champions, change_setting, get_setting, lol::connect, lol::get_available_champions])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

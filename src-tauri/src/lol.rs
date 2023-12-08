@@ -1,4 +1,3 @@
-#![allow(unused_variables)]
 #![allow(unused_assignments)]
 
 use futures_util::stream::StreamExt;
@@ -61,7 +60,22 @@ async fn lcu_connect() -> Result<(), shaco::error::LcuWebsocketError> {
         }
 
         if phase == "ban".to_string() && lobby_phase == "BAN_PICK".to_string() && am_i_banning {
-            todo!();
+            mode = "blind".to_string();
+            position = "middle".to_string();
+
+            if config["ban"][mode.as_str()][position.as_str()].as_array().unwrap().iter().len() != 0 {
+                for i in config["ban"][mode.as_str()][position.as_str()].as_array().unwrap() {
+                    if let Ok(_) = rest
+                        .patch(format!("/lol-champ-select/v1/session/actions/{}", action_id).to_string(), json!({
+                            "championId": champions["data"][i.as_str().unwrap()]["key"].as_str().unwrap().parse::<u64>().unwrap(),
+                            "completed": true
+                        }))
+                        .await {
+                            am_i_banning = false;
+                            break;
+                    }
+                }
+            }
         }
 
         if phase == "pick".to_string() && lobby_phase == "BAN_PICK".to_string() && am_i_picking {
@@ -70,7 +84,7 @@ async fn lcu_connect() -> Result<(), shaco::error::LcuWebsocketError> {
 
             if config["pick"][mode.as_str()][position.as_str()].as_array().unwrap().iter().len() != 0 {
                 for i in config["pick"][mode.as_str()][position.as_str()].as_array().unwrap() {
-                    if let Ok(result) = rest
+                    if let Ok(_) = rest
                         .patch(format!("/lol-champ-select/v1/session/actions/{}", action_id).to_string(), json!({
                             "championId": champions["data"][i.as_str().unwrap()]["key"].as_str().unwrap().parse::<u64>().unwrap(),
                             "completed": true
@@ -88,19 +102,24 @@ async fn lcu_connect() -> Result<(), shaco::error::LcuWebsocketError> {
                             break;
                     }
                 }
+            } else {
+                println!("No champion to select");
+                am_i_picking = false;
             }
-
-            // if let Err(_) = rest
-            //     .patch(format!("/lol-champ-select/v1/session/actions/{}", action_id).to_string(), json!({
-            //         "championId": 39,
-            //         "completed": true
-            //     }))
-            //     .await {
-            //         am_i_picking = false;
-            // }
         }
     }
 
     Ok(())
 
+}
+
+#[tauri::command]
+pub async fn get_available_champions() -> String{
+    let rest = shaco::rest::RESTClient::new().unwrap();
+
+    return rest
+        .get("/lol-champions/v1/owned-champions-minimal".to_string())
+        .await
+        .unwrap()
+        .to_string();
 }
