@@ -1,5 +1,3 @@
-#![allow(unused_assignments)]
-
 use futures_util::stream::StreamExt;
 use serde_json::{self, json};
 use tauri::api::path::local_data_dir;
@@ -18,26 +16,28 @@ async fn lcu_connect() -> Result<(), shaco::error::LcuWebsocketError> {
     let champions: serde_json::Value = serde_json::from_reader(std::fs::File::open("./data/champions.json").unwrap()).unwrap();
     let config: serde_json::Value = serde_json::from_reader(std::fs::File::open(local_data_dir().unwrap().join("lol-afk/data/config.json")).unwrap()).unwrap();
 
-    let rest = shaco::rest::RESTClient::new().unwrap();
     let mut client = shaco::ws::LcuWebsocketClient::connect().await?;
+    let rest = shaco::rest::RESTClient::new().unwrap();
+    
     client
         .subscribe(shaco::model::ws::LcuSubscriptionType::JsonApiEvent("/lol-champ-select/v1/session".to_string()))
         .await
         .unwrap();
 
+    let mut position: String = String::new();
+    let mut mode: String = String::new();
+    let mut phase: String = String::new();
+    let mut action_id: i64 = 0;
+    let mut am_i_banning: bool = false;
+    let mut am_i_picking: bool = false;
+
     while let Some(event) = client.next().await {
         let local_player_cell_id = &event.data["localPlayerCellId"];
 
         let lobby_phase = event.data["timer"]["phase"].as_str().unwrap().to_string();
-        let mut position: String = "".to_string();
-        let mut mode: String = "".to_string();
-        let mut phase: String = "".to_string();
-        let mut action_id: u64 = 0;
-        let mut am_i_banning: bool = false;
-        let mut am_i_picking: bool = false;
 
         for teammate in event.data["myTeam"].as_array().unwrap() {
-            if teammate["cellId"].as_u64().unwrap() == local_player_cell_id.as_u64().unwrap() {
+            if teammate["cellId"].as_i64().unwrap() == local_player_cell_id.as_i64().unwrap() {
                 position = teammate["assignedPosition"].as_str().unwrap().to_string();
                 mode = "drafts".to_string();
             }
@@ -45,9 +45,9 @@ async fn lcu_connect() -> Result<(), shaco::error::LcuWebsocketError> {
 
         for action in event.data["actions"].as_array().unwrap() {
             for action_arr in action.as_array().unwrap() {
-                if action_arr["actorCellId"].as_u64().unwrap() == local_player_cell_id.as_u64().unwrap() && action_arr["isInProgress"].as_bool().unwrap() {
+                if action_arr["actorCellId"].as_i64().unwrap() == local_player_cell_id.as_i64().unwrap() && action_arr["isInProgress"].as_bool().unwrap() {
                     phase = action_arr["type"].as_str().unwrap().to_string();
-                    action_id = action_arr["id"].as_u64().unwrap();
+                    action_id = action_arr["id"].as_i64().unwrap();
                     
                     if phase == "ban".to_string() {
                         am_i_banning = action_arr["isInProgress"].as_bool().unwrap();
@@ -60,14 +60,11 @@ async fn lcu_connect() -> Result<(), shaco::error::LcuWebsocketError> {
         }
 
         if phase == "ban".to_string() && lobby_phase == "BAN_PICK".to_string() && am_i_banning {
-            mode = "blind".to_string();
-            position = "middle".to_string();
-
             if config["ban"][mode.as_str()][position.as_str()].as_array().unwrap().iter().len() != 0 {
                 for i in config["ban"][mode.as_str()][position.as_str()].as_array().unwrap() {
                     if let Ok(_) = rest
                         .patch(format!("/lol-champ-select/v1/session/actions/{}", action_id).to_string(), json!({
-                            "championId": champions["data"][i.as_str().unwrap()]["key"].as_str().unwrap().parse::<u64>().unwrap(),
+                            "championId": champions["data"][i.as_str().unwrap()]["key"].as_str().unwrap().parse::<i64>().unwrap(),
                             "completed": true
                         }))
                         .await {
@@ -79,14 +76,16 @@ async fn lcu_connect() -> Result<(), shaco::error::LcuWebsocketError> {
         }
 
         if phase == "pick".to_string() && lobby_phase == "BAN_PICK".to_string() && am_i_picking {
-            mode = "blind".to_string();
-            position = "middle".to_string();
+            if position == "".to_string() {
+                position = "middle".to_string();
+                mode = "blind".to_string();
+            }
 
             if config["pick"][mode.as_str()][position.as_str()].as_array().unwrap().iter().len() != 0 {
                 for i in config["pick"][mode.as_str()][position.as_str()].as_array().unwrap() {
                     if let Ok(_) = rest
                         .patch(format!("/lol-champ-select/v1/session/actions/{}", action_id).to_string(), json!({
-                            "championId": champions["data"][i.as_str().unwrap()]["key"].as_str().unwrap().parse::<u64>().unwrap(),
+                            "championId": champions["data"][i.as_str().unwrap()]["key"].as_str().unwrap().parse::<i64>().unwrap(),
                             "completed": true
                         }))
                         .await {
@@ -97,7 +96,7 @@ async fn lcu_connect() -> Result<(), shaco::error::LcuWebsocketError> {
                     if rest
                         .get("/lol-champ-select/v1/current-champion".to_string())
                         .await
-                        .unwrap().as_u64().unwrap() != 0 {
+                        .unwrap().as_i64().unwrap() != 0 {
                             am_i_picking = false;  
                             break;
                     }
@@ -114,7 +113,7 @@ async fn lcu_connect() -> Result<(), shaco::error::LcuWebsocketError> {
 }
 
 #[tauri::command]
-pub async fn get_available_champions() -> String{
+pub async fn get_available_champions() -> String {
     let rest = shaco::rest::RESTClient::new().unwrap();
 
     return rest
