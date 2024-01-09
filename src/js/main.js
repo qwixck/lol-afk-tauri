@@ -155,30 +155,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const input = document.getElementById("input");
 
     input.oninput = () => {
+      const championsContainer = document.getElementById("champions");
+      championsContainer.innerHTML = "";
+    
       if (input.value !== "") {
         for (let champion in champions) {
-          try {
-            document.getElementById(champion).remove()
-          } catch (e) {}
-        }
-
-        for (let champion in champions) {
           if (champion.includes(input.value.toLowerCase())) {
-            generateChamp(champion, champions)
+            generateChamp(champion, champions);
           }
         }
       } else {
         for (let champion in champions) {
-          try {
-            document.getElementById(champion).remove()
-          } catch (e) {}
-        }
-        
-        for (let champion in champions) {
-          generateChamp(champion, champions)
+          generateChamp(champion, champions);
         }
       }
-    }
+    };
   })
 
   const connect = document.getElementById("connect")
