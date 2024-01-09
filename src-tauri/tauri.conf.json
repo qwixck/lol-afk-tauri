@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "lol-afk",
-    "version": "0.0.0"
+    "version": "1.0.0"
   },
   "tauri": {
     "allowlist": {
@@ -45,7 +45,7 @@
         "width": 861,
         "height": 600,
         "minWidth": 545,
-        "minHeight": 275,
+        "minHeight": 380,
         "url": "./html/index.html"
       }
     ]
