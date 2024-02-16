@@ -1,8 +1,8 @@
 use futures_util::stream::StreamExt;
-use serde_json::{self, json};
+use serde_json::{Value, from_reader, json};
 use tauri::api::path::local_data_dir;
-
 use shaco::model::ws::LcuSubscriptionType::JsonApiEvent;
+use std::fs::File;
 
 #[tauri::command]
 pub async fn connect() -> Result<(), String> {
@@ -15,8 +15,8 @@ pub async fn connect() -> Result<(), String> {
 }
 
 async fn lcu_connect() -> Result<(), shaco::error::LcuWebsocketError> {
-    let champions: serde_json::Value = serde_json::from_reader(std::fs::File::open("./data/champions.json").unwrap()).unwrap();
-    let config: serde_json::Value = serde_json::from_reader(std::fs::File::open(local_data_dir().unwrap().join("lol-afk/data/config.json")).unwrap()).unwrap();
+    let champions: Value = from_reader(File::open("./data/champions.json").unwrap()).unwrap();
+    let config: Value = from_reader(File::open(local_data_dir().unwrap().join("lol-afk/data/config.json")).unwrap()).unwrap();
 
     let mut client = shaco::ws::LcuWebsocketClient::connect().await?;
     let rest = shaco::rest::RESTClient::new().unwrap();

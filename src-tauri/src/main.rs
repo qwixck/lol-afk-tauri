@@ -5,14 +5,16 @@ mod lol;
 
 use std::io::Write;
 use tauri::api::path::local_data_dir;
+use serde_json::{Value, from_reader, to_string_pretty, to_writer_pretty, json};
+use std::fs::File;
 
 #[tauri::command]
 fn write(name: String) -> bool {
     let is_in_config: bool;
-    let file = std::fs::File::open(local_data_dir().unwrap().join("lol-afk/data/config.json")).unwrap();
-    let mut config: serde_json::Value = serde_json::from_reader(file).unwrap();
-    let file = std::fs::File::open(local_data_dir().unwrap().join("lol-afk/data/settings.json")).unwrap();
-    let settings: serde_json::Value = serde_json::from_reader(file).unwrap();
+    let file = File::open(local_data_dir().unwrap().join("lol-afk/data/config.json")).unwrap();
+    let mut config: Value = from_reader(file).unwrap();
+    let file = File::open(local_data_dir().unwrap().join("lol-afk/data/settings.json")).unwrap();
+    let settings: Value = from_reader(file).unwrap();
 
     if let Some(index) = config
         [settings["type_"].as_str().unwrap()]
@@ -36,9 +38,9 @@ fn write(name: String) -> bool {
         is_in_config = false;
     }
 
-    let updated_json = serde_json::to_string_pretty(&config).unwrap();
+    let updated_json = to_string_pretty(&config).unwrap();
     
-    let mut file = std::fs::File::create(local_data_dir().unwrap().join("lol-afk/data/config.json")).unwrap();
+    let mut file = File::create(local_data_dir().unwrap().join("lol-afk/data/config.json")).unwrap();
     
     file.write_all(updated_json.as_bytes()).unwrap();
 
@@ -47,10 +49,10 @@ fn write(name: String) -> bool {
 
 #[tauri::command]
 fn read(name: String) -> bool {
-    let file = std::fs::File::open(local_data_dir().unwrap().join("lol-afk/data/settings.json")).unwrap();
-    let settings: serde_json::Value = serde_json::from_reader(file).unwrap();
-    let file = std::fs::File::open(local_data_dir().unwrap().join("lol-afk/data/config.json")).unwrap();
-    let config: serde_json::Value = serde_json::from_reader(file).unwrap();
+    let file = File::open(local_data_dir().unwrap().join("lol-afk/data/settings.json")).unwrap();
+    let settings: Value = from_reader(file).unwrap();
+    let file = File::open(local_data_dir().unwrap().join("lol-afk/data/config.json")).unwrap();
+    let config: Value = from_reader(file).unwrap();
 
     let something = config
         [settings["type_"].as_str().unwrap()]
@@ -63,31 +65,31 @@ fn read(name: String) -> bool {
 
 #[tauri::command]
 fn get_champions() -> String {
-    let file = std::fs::File::open("./data/champions.json").unwrap();
-    let json: serde_json::Value = serde_json::from_reader(file).unwrap();
+    let file = File::open("./data/champions.json").unwrap();
+    let json: Value = from_reader(file).unwrap();
     
     return json.to_string();
 }
 
 #[tauri::command]
-fn get_setting(setting: String) -> serde_json::Value {
-    let file = std::fs::File::open(local_data_dir().unwrap().join("lol-afk/data/settings.json")).unwrap();
-    let json: serde_json::Value = serde_json::from_reader(file).unwrap();
+fn get_setting(setting: String) -> Value {
+    let file = File::open(local_data_dir().unwrap().join("lol-afk/data/settings.json")).unwrap();
+    let json: Value = from_reader(file).unwrap();
 
     return json[setting].clone();
 }
 
 #[tauri::command]
 fn change_setting(key: String, value: String) {
-    let file = std::fs::File::open(local_data_dir().unwrap().join("lol-afk/data/settings.json")).unwrap();
+    let file = File::open(local_data_dir().unwrap().join("lol-afk/data/settings.json")).unwrap();
 
-    let mut json: serde_json::Value = serde_json::from_reader(file).unwrap();
+    let mut json: Value = from_reader(file).unwrap();
 
-    json[key] = serde_json::Value::String(value);
+    json[key] = Value::String(value);
 
-    let update_json = serde_json::to_string_pretty(&json).unwrap();
+    let update_json = to_string_pretty(&json).unwrap();
 
-    let mut file = std::fs::File::create(local_data_dir().unwrap().join("lol-afk/data/settings.json")).unwrap();
+    let mut file = File::create(local_data_dir().unwrap().join("lol-afk/data/settings.json")).unwrap();
 
     file.write_all(update_json.as_bytes()).unwrap();
 }
@@ -96,18 +98,18 @@ fn main() {
     if !local_data_dir().unwrap().join("lol-afk").exists() {
         std::fs::create_dir_all(local_data_dir().unwrap().join("lol-afk/data")).unwrap();
 
-        let file = std::fs::File::create(local_data_dir().unwrap().join("lol-afk/data/config.json")).unwrap();
-        let data = serde_json::json!({
+        let file = File::create(local_data_dir().unwrap().join("lol-afk/data/config.json")).unwrap();
+        let data = json!({
             "pick": {"drafts": {"top": [],"jungle": [],"middle": [],"bottom": [],"utility": []},"blind": {"middle": []}},
             "ban": {"drafts": {"top": [],"jungle": [],"middle": [],"bottom": [],"utility": []}}
         });
-        serde_json::to_writer_pretty(file, &data).unwrap();
+        to_writer_pretty(file, &data).unwrap();
 
-        let file = std::fs::File::create(local_data_dir().unwrap().join("lol-afk/data/settings.json")).unwrap();
-        let data = serde_json::json!({
+        let file = File::create(local_data_dir().unwrap().join("lol-afk/data/settings.json")).unwrap();
+        let data = json!({
             "mode": "drafts", "position": "middle", "type_": "pick"
         });
-        serde_json::to_writer_pretty(file, &data).unwrap();
+        to_writer_pretty(file, &data).unwrap();
     }
 
     tauri::Builder::default()
